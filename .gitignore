@@ -1,0 +1,10 @@
+.idea
+*.zip
+FitNesseRoot/files
+FitNesseRoot/ErrorLogs
+FitNesseRoot/FitNesse
+FitNesseRoot/RecentChanges
+out
+cleancoderscom.iml
+fitnesse-standalone.jar
+

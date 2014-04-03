@@ -1,0 +1,15 @@
+|scenario|given no codecasts|
+|clear codecasts|
+
+|scenario|with user _ logged in|user|
+|login user|@user|
+
+|scenario|and with license for _ able to view _|user,codecast|
+|create license for |@user| viewing |@codecast|
+
+|scenario|then presentation user will be _|user|
+|check|presentation user|@user|
+
+|scenario|there will be no codecasts presented|
+|check|count of codecasts presented|0|
+

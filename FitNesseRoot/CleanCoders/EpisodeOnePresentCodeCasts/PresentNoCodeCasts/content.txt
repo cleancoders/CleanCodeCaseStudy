@@ -1,0 +1,8 @@
+-!|script|
+|given no codecasts                   |
+|with user U logged in                |
+|and with license for U able to view A|
+|then presentation user will be U     |
+|there will be no codecasts presented |
+
+

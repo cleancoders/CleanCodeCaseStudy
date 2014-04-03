@@ -1,0 +1,3 @@
+!define TEST_SYSTEM {slim}
+!path out/production/cleancoderscom
+!contents

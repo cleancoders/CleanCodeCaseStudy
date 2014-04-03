@@ -1,0 +1,16 @@
+| Given Codecasts |
+| title | published |
+| A | 3/1/2014 |
+| B | 3/2/2014 |
+| C | 2/18/2014 |
+
+-!|script|
+|with user U logged in|
+|and with license for U able to view A|
+|then presentation user will be U|
+
+| Ordered query:of code casts |
+| title | picture | description | viewable |
+| C | C | C | false |
+| A | A | A | true |
+| B | B | B | false |
