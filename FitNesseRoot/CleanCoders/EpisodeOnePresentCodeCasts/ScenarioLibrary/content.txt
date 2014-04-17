@@ -7,9 +7,13 @@
 |scenario|and with license for _ able to view _|user,codecast|
 |create license for |@user| viewing |@codecast|
 
-|scenario|then presentation user will be _|user|
+|scenario|then the following codecasts will be presented for _|user|
 |check|presentation user|@user|
 
 |scenario|there will be no codecasts presented|
 |check|count of codecasts presented|0|
+
+|scenario|given user _|user|
+|add user|@user|
+
 

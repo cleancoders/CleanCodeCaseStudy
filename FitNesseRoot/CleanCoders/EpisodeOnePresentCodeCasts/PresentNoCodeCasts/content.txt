@@ -1,8 +1,8 @@
 -!|script|
 |given no codecasts                   |
+|given user U |
 |with user U logged in                |
-|and with license for U able to view A|
-|then presentation user will be U     |
+|then the following codecasts will be presented for U |
 |there will be no codecasts presented |
 
 

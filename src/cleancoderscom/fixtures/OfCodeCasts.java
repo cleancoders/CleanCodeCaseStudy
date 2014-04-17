@@ -10,12 +10,11 @@ public class OfCodeCasts {
   }
 
   public List<Object> query() {
-    return (
+    return
       list(
         list(
           //list(name,value)
         )
-      )
-    );
+      );
   }
 }
