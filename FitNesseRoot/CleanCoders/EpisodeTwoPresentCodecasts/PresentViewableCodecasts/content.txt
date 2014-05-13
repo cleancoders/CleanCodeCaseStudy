@@ -1,0 +1,18 @@
+| Given Codecasts |
+| title | published |
+| A | 3/1/2014 |
+| B | 3/2/2014 |
+| C | 2/18/2014 |
+
+-!|script|
+|given user U|
+|with user U logged in|
+|and with license for U able to view A|
+|then the following codecasts will be presented for U|
+
+| Ordered query:of code casts |
+| title | picture | description | viewable | downloadable |
+| C | C | C | - | -|
+| A | A | A | + | - |
+| B | B | B | - | -|
+

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CodecastPresentation {
   private PresentCodecastUseCase useCase = new PresentCodecastUseCase();
-  private GateKeeper gateKeeper = new GateKeeper();
+  public static GateKeeper gateKeeper = new GateKeeper();
 
   public CodecastPresentation() {
     Context.gateway = new MockGateway();
@@ -28,9 +28,17 @@ public class CodecastPresentation {
     }
   }
 
-  public boolean createLicenseForViewing(String user, String codecast) {
-    return false;
+  public boolean createLicenseForViewing(String username, String codecastTitle) {
+    User user = Context.gateway.findUser(username);
+    Codecast codecast = Context.gateway.findCodecastByTitle(codecastTitle);
+    License license = new License(user, codecast);
+    Context.gateway.save(license);
+    return useCase.isLicensedToViewCodecast(user, codecast);
   }
+
+  public boolean createLicenseForDownloading(String user, String codecast) {
+      return false;
+    }
 
   public String presentationUser() {
     return gateKeeper.getLoggedInUser().getUserName();

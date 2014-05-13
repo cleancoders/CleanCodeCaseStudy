@@ -7,6 +7,9 @@
 |scenario|and with license for _ able to view _|user,codecast|
 |create license for |@user| viewing |@codecast|
 
+|scenario|and with license for _ able to download _|user,codecast|
+|create license for |@user| downloading |@codecast|
+
 |scenario|then the following codecasts will be presented for _|user|
 |check|presentation user|@user|
 

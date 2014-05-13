@@ -5,12 +5,13 @@
 | C | 2/18/2014 |
 
 -!|script|
+|given user U|
 |with user U logged in|
-|and with license for U able to view A|
+|and with license for U able to download A|
 |then the following codecasts will be presented for U|
 
 | Ordered query:of code casts |
-| title | picture | description | viewable |
-| C | C | C | false |
-| A | A | A | true |
-| B | B | B | false |
+| title | picture | description | viewable | downloadable |
+| C | C | C | - | -|
+| A | A | A | - | + |
+| B | B | B | - | -|

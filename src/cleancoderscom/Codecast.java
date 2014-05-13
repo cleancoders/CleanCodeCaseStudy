@@ -1,6 +1,6 @@
 package cleancoderscom;
 
-public class Codecast {
+public class Codecast extends Entity {
   private String title;
   private String publicationDate;
 
@@ -10,5 +10,13 @@ public class Codecast {
 
   public void setPublicationDate(String publicationDate) {
     this.publicationDate = publicationDate;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public String getPublicationDate() {
+    return publicationDate;
   }
 }
