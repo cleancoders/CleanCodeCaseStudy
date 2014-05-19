@@ -20,18 +20,19 @@ public class OfCodeCasts {
     List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(loggedInUser);
     List<Object> queryResponse = new ArrayList<Object>();
     for (PresentableCodecast pcc : presentableCodecasts)
-      queryResponse.add(makeRow(pcc.title, pcc.title, pcc.title, pcc.isViewable, false));
+      queryResponse.add(makeRow(pcc));
     return queryResponse;
 
   }
 
-  private List<Object> makeRow(String title, String picture, String description, boolean viewable, boolean downloadable) {
+  private List<Object> makeRow(PresentableCodecast pc) {
     return list(
-      new Object[]{list("title", title),
-        list("picture", picture),
-        list("description", description),
-        list("viewable", viewable ? "+" : "-"),
-        list("downloadable", downloadable ? "+" : "-")}
+      new Object[]{list("title", pc.title),
+        list("publication date", pc.publicationDate),
+        list("picture", pc.title),
+        list("description", pc.title),
+        list("viewable", pc.isViewable ? "+" : "-"),
+        list("downloadable", false ? "+" : "-")}
     );
   }
 

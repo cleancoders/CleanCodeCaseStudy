@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 public class GivenCodecasts {
   private String title;
   private String publicationDate;
-  private static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/YYYY");
+  private static SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
 
   public void setTitle(String title) {
     this.title = title;
@@ -22,6 +22,8 @@ public class GivenCodecasts {
   public void execute() throws ParseException {
     Codecast codecast = new Codecast();
     codecast.setTitle(title);
+    System.out.println(publicationDate);
+    System.out.println(dateFormat.parse(publicationDate));
     codecast.setPublicationDate(dateFormat.parse(publicationDate));
     Context.gateway.save(codecast);
   }

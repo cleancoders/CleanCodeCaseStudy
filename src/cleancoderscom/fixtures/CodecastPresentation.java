@@ -36,9 +36,13 @@ public class CodecastPresentation {
     return useCase.isLicensedToViewCodecast(user, codecast);
   }
 
-  public boolean createLicenseForDownloading(String user, String codecast) {
-      return false;
-    }
+  public boolean createLicenseForDownloading(String username, String codecastTitle) {
+    User user = Context.gateway.findUser(username);
+    Codecast codecast = Context.gateway.findCodecastByTitle(codecastTitle);
+    License license = new License(user, codecast);
+    Context.gateway.save(license);
+    return useCase.isLicensedToDownloadCodecast(user, codecast);
+  }
 
   public String presentationUser() {
     return gateKeeper.getLoggedInUser().getUserName();
