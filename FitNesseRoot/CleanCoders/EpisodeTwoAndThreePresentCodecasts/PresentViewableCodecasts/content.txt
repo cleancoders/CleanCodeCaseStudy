@@ -11,8 +11,8 @@
 |then the following codecasts will be presented for U|
 
 | Ordered query:of code casts |
-| title | picture | description | viewable | downloadable |
-| C | C | C | - | -|
-| A | A | A | + | - |
-| B | B | B | - | -|
+| title | publication date | picture | description | viewable | downloadable |
+| C | | C | C | - | -|
+| A | | A | A | + | - |
+| B | | B | B | - | -|
 

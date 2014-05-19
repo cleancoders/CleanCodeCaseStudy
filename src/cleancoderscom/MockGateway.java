@@ -1,8 +1,6 @@
 package cleancoderscom;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class MockGateway implements Gateway {
 
@@ -16,8 +14,15 @@ public class MockGateway implements Gateway {
     licenses = new ArrayList<License>();
   }
 
-  public List<Codecast> findAllCodecasts() {
-    return codecasts;
+  public List<Codecast> findAllCodecastsSortedChronologically()
+  {
+    List<Codecast> sortedCodecasts = new ArrayList<Codecast>(codecasts);
+    Collections.sort(sortedCodecasts, new Comparator<Codecast>() {
+      public int compare(Codecast o1, Codecast o2) {
+        return o1.getPublicationDate().compareTo(o2.getPublicationDate());
+      }
+    });
+    return sortedCodecasts;
   }
 
   public void delete(Codecast codecast) {

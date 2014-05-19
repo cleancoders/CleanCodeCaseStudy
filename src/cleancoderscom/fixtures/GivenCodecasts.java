@@ -3,9 +3,13 @@ package cleancoderscom.fixtures;
 import cleancoderscom.Codecast;
 import cleancoderscom.Context;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class GivenCodecasts {
   private String title;
   private String publicationDate;
+  private static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/YYYY");
 
   public void setTitle(String title) {
     this.title = title;
@@ -15,10 +19,10 @@ public class GivenCodecasts {
     this.publicationDate = publicationDate;
   }
 
-  public void execute() {
+  public void execute() throws ParseException {
     Codecast codecast = new Codecast();
     codecast.setTitle(title);
-    codecast.setPublicationDate(publicationDate);
+    codecast.setPublicationDate(dateFormat.parse(publicationDate));
     Context.gateway.save(codecast);
   }
 

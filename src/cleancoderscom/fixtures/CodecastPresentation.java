@@ -45,11 +45,11 @@ public class CodecastPresentation {
   }
 
   public boolean clearCodecasts() {
-    List<Codecast> codecasts = Context.gateway.findAllCodecasts();
+    List<Codecast> codecasts = Context.gateway.findAllCodecastsSortedChronologically();
     for (Codecast codecast : new ArrayList<Codecast>(codecasts)) {
       Context.gateway.delete(codecast);
     }
-    return Context.gateway.findAllCodecasts().size() == 0;
+    return Context.gateway.findAllCodecastsSortedChronologically().size() == 0;
   }
 
   public int countOfCodecastsPresented() {

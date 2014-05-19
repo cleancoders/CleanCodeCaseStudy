@@ -3,6 +3,8 @@ package cleancoderscom;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -53,12 +55,13 @@ public class PresentCodecastUseCaseTest {
   @Test
   public void presentOneCodecast() throws Exception {
     codecast.setTitle("Some Title");
-    codecast.setPublicationDate("Tomorrow");
+    Date now = new GregorianCalendar(2014, 4, 19).getTime();
+    codecast.setPublicationDate(now);
     List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
     assertEquals(1, presentableCodecasts.size());
     PresentableCodecast presentableCodecast = presentableCodecasts.get(0);
     assertEquals("Some Title", presentableCodecast.title);
-    assertEquals("Tomorrow", presentableCodecast.publicationDate);
+    assertEquals("5/19/2014", presentableCodecast.publicationDate);
   }
 
   @Test
