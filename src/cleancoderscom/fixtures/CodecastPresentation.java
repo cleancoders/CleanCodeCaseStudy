@@ -5,6 +5,9 @@ import cleancoderscom.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cleancoderscom.License.LicenseType.DOWNLOADING;
+import static cleancoderscom.License.LicenseType.VIEWING;
+
 public class CodecastPresentation {
   private PresentCodecastUseCase useCase = new PresentCodecastUseCase();
   public static GateKeeper gateKeeper = new GateKeeper();
@@ -31,17 +34,17 @@ public class CodecastPresentation {
   public boolean createLicenseForViewing(String username, String codecastTitle) {
     User user = Context.gateway.findUser(username);
     Codecast codecast = Context.gateway.findCodecastByTitle(codecastTitle);
-    License license = new License(user, codecast);
+    License license = new License(VIEWING, user, codecast);
     Context.gateway.save(license);
-    return useCase.isLicensedToViewCodecast(user, codecast);
+    return useCase.isLicensedFor(VIEWING, user, codecast);
   }
 
   public boolean createLicenseForDownloading(String username, String codecastTitle) {
     User user = Context.gateway.findUser(username);
     Codecast codecast = Context.gateway.findCodecastByTitle(codecastTitle);
-    License license = new License(user, codecast);
+    License license = new License(DOWNLOADING, user, codecast);
     Context.gateway.save(license);
-    return useCase.isLicensedToDownloadCodecast(user, codecast);
+    return useCase.isLicensedFor(DOWNLOADING, user, codecast);
   }
 
   public String presentationUser() {

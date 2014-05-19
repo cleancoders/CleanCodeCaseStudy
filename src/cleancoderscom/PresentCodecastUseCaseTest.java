@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import static cleancoderscom.License.LicenseType.*;
 import static org.junit.Assert.*;
 
 public class PresentCodecastUseCaseTest {
@@ -25,23 +26,23 @@ public class PresentCodecastUseCaseTest {
 
   @Test
   public void userWithoutViewLicense_cannotViewCodecast() throws Exception {
-    assertFalse(useCase.isLicensedToViewCodecast(user, codecast));
+    assertFalse(useCase.isLicensedFor(VIEWING, user, codecast));
   }
 
   @Test
   public void userWithViewLicense_canViewCodecast() throws Exception {
-    License viewLicense = new License(user, codecast);
+    License viewLicense = new License(VIEWING, user, codecast);
     Context.gateway.save(viewLicense);
-    assertTrue(useCase.isLicensedToViewCodecast(user, codecast));
+    assertTrue(useCase.isLicensedFor(VIEWING, user, codecast));
   }
 
   @Test
   public void userWithoutViewLicense_cannotViewOtherUsersCodecast() throws Exception {
     User otherUser = Context.gateway.save(new User("otherUser"));
 
-    License viewLicense = new License(user, codecast);
+    License viewLicense = new License(VIEWING, user, codecast);
     Context.gateway.save(viewLicense);
-    assertFalse(useCase.isLicensedToViewCodecast(otherUser, codecast));
+    assertFalse(useCase.isLicensedFor(VIEWING, otherUser, codecast));
   }
 
   @Test
@@ -73,7 +74,7 @@ public class PresentCodecastUseCaseTest {
 
   @Test
   public void presentedCodecastIsViewableIfLicenseExists() throws Exception {
-    Context.gateway.save(new License(user, codecast));
+    Context.gateway.save(new License(VIEWING, user, codecast));
     List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
     PresentableCodecast presentableCodecast = presentableCodecasts.get(0);
     assertTrue(presentableCodecast.isViewable);
@@ -81,11 +82,12 @@ public class PresentCodecastUseCaseTest {
 
   @Test
   public void prestedCodecastIsDownloadableIfDownloadLicenseExists() throws Exception {
-    License downloadLicense = new DownloadLicense(user, codecast);
+    License downloadLicense = new License(DOWNLOADING, user, codecast);
     Context.gateway.save(downloadLicense);
     List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
     PresentableCodecast presentableCodecast = presentableCodecasts.get(0);
     assertTrue(presentableCodecast.isDownloadable);
+    assertFalse(presentableCodecast.isViewable);
   }
 
 

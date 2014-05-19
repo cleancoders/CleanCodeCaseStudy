@@ -32,7 +32,7 @@ public class OfCodeCasts {
         list("picture", pc.title),
         list("description", pc.title),
         list("viewable", pc.isViewable ? "+" : "-"),
-        list("downloadable", false ? "+" : "-")}
+        list("downloadable", pc.isDownloadable ? "+" : "-")}
     );
   }
 
