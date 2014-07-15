@@ -22,7 +22,7 @@ public class CodecastPresentation {
   }
 
   public boolean loginUser(String username) {
-    User user = Context.gateway.findUser(username);
+    User user = Context.gateway.findUserByName(username);
     if (user != null) {
       gateKeeper.setLoggedInUser(user);
       return true;
@@ -32,7 +32,7 @@ public class CodecastPresentation {
   }
 
   public boolean createLicenseForViewing(String username, String codecastTitle) {
-    User user = Context.gateway.findUser(username);
+    User user = Context.gateway.findUserByName(username);
     Codecast codecast = Context.gateway.findCodecastByTitle(codecastTitle);
     License license = new License(VIEWING, user, codecast);
     Context.gateway.save(license);
@@ -40,7 +40,7 @@ public class CodecastPresentation {
   }
 
   public boolean createLicenseForDownloading(String username, String codecastTitle) {
-    User user = Context.gateway.findUser(username);
+    User user = Context.gateway.findUserByName(username);
     Codecast codecast = Context.gateway.findCodecastByTitle(codecastTitle);
     License license = new License(DOWNLOADING, user, codecast);
     Context.gateway.save(license);

@@ -49,7 +49,7 @@ public class MockGateway implements Gateway {
     licenses.add(license);
   }
 
-  public User findUser(String username) {
+  public User findUserByName(String username) {
     for (User user : users) {
       if (user.getUserName().equals(username))
         return user;

@@ -2,4 +2,4 @@
 
 ----
 !define TEST_SYSTEM {slim}
-!path out/production/cleancoderscom
+!path target/classes

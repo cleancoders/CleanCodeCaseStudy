@@ -13,7 +13,7 @@ public interface Gateway {
 
   void save(License license);
 
-  User findUser(String username);
+  User findUserByName(String username);
 
   Codecast findCodecastByTitle(String codecastTitle);
 
