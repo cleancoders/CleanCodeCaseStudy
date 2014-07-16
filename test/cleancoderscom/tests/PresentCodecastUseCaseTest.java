@@ -48,7 +48,10 @@ public class PresentCodecastUseCaseTest {
       codecast.setTitle("Some Title");
       Date now = new GregorianCalendar(2014, 4, 19).getTime();
       codecast.setPublicationDate(now);
+      Context.codecastGateway.save(codecast);
+
       List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
+
       assertEquals(1, presentableCodecasts.size());
       PresentableCodecast presentableCodecast = presentableCodecasts.get(0);
       assertEquals("Some Title", presentableCodecast.title);
@@ -85,7 +88,8 @@ public class PresentCodecastUseCaseTest {
 
       @Test
       public void unlicensedUserCannotViewOtherUsersCodecast() throws Exception {
-        User otherUser = Context.userGateway.save(new User("otherUser"));
+        User otherUser = new User("otherUser");
+        Context.userGateway.save(otherUser);
         assertFalse(useCase.isLicensedFor(VIEWING, otherUser, codecast));
       }
 
