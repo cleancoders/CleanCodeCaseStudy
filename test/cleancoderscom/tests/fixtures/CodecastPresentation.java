@@ -11,10 +11,9 @@ import static cleancoderscom.License.LicenseType.VIEWING;
 
 public class CodecastPresentation {
   private PresentCodecastUseCase useCase = new PresentCodecastUseCase();
-  public static GateKeeper gateKeeper = new GateKeeper();
 
   public CodecastPresentation() {
-    TestSetup.addInMemoryGatewaysToContext();
+    TestSetup.setupContext();
   }
 
   public boolean addUser(String username) {
@@ -25,7 +24,7 @@ public class CodecastPresentation {
   public boolean loginUser(String username) {
     User user = Context.userGateway.findUserByName(username);
     if (user != null) {
-      gateKeeper.setLoggedInUser(user);
+      Context.gateKeeper.setLoggedInUser(user);
       return true;
     } else {
       return false;
@@ -49,7 +48,7 @@ public class CodecastPresentation {
   }
 
   public String presentationUser() {
-    return gateKeeper.getLoggedInUser().getUserName();
+    return Context.gateKeeper.getLoggedInUser().getUserName();
   }
 
   public boolean clearCodecasts() {
@@ -61,7 +60,7 @@ public class CodecastPresentation {
   }
 
   public int countOfCodecastsPresented() {
-    List<PresentableCodecast> presentations = useCase.presentCodecasts(gateKeeper.getLoggedInUser());
+    List<PresentableCodecast> presentations = useCase.presentCodecasts(Context.gateKeeper.getLoggedInUser());
     return presentations.size();
   }
 }

@@ -21,7 +21,7 @@ public class PresentCodecastUseCaseTest {
 
   @Before
   public void setUp() {
-    TestSetup.addInMemoryGatewaysToContext();
+    TestSetup.setupContext();
     user = Context.userGateway.save(new User("User"));
     useCase = new PresentCodecastUseCase();
   }

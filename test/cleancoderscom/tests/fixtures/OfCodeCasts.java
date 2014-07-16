@@ -1,5 +1,6 @@
 package cleancoderscom.tests.fixtures;
 
+import cleancoderscom.Context;
 import cleancoderscom.PresentCodecastUseCase;
 import cleancoderscom.PresentableCodecast;
 import cleancoderscom.User;
@@ -15,7 +16,7 @@ public class OfCodeCasts {
   }
 
   public List<Object> query() {
-    User loggedInUser = CodecastPresentation.gateKeeper.getLoggedInUser();
+    User loggedInUser = Context.gateKeeper.getLoggedInUser();
     PresentCodecastUseCase useCase = new PresentCodecastUseCase();
     List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(loggedInUser);
     List<Object> queryResponse = new ArrayList<Object>();
