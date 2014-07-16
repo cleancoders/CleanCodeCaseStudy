@@ -1,4 +1,4 @@
-package cleancoderscom.fixtures;
+package cleancoderscom.tests.fixtures;
 
 import cleancoderscom.Codecast;
 import cleancoderscom.Context;
@@ -25,7 +25,7 @@ public class GivenCodecasts {
     System.out.println(publicationDate);
     System.out.println(dateFormat.parse(publicationDate));
     codecast.setPublicationDate(dateFormat.parse(publicationDate));
-    Context.gateway.save(codecast);
+    Context.codecastGateway.save(codecast);
   }
 
 }

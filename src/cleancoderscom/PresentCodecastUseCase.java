@@ -12,7 +12,7 @@ public class PresentCodecastUseCase {
 
   public List<PresentableCodecast> presentCodecasts(User loggedInUser) {
     ArrayList<PresentableCodecast> presentableCodecasts = new ArrayList<PresentableCodecast>();
-    List<Codecast> allCodecasts = Context.gateway.findAllCodecastsSortedChronologically();
+    List<Codecast> allCodecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
 
     for (Codecast codecast : allCodecasts)
       presentableCodecasts.add(formatCodecast(loggedInUser, codecast));
@@ -30,7 +30,7 @@ public class PresentCodecastUseCase {
   }
 
   public boolean isLicensedFor(License.LicenseType licenseType, User user, Codecast codecast) {
-    List<License> licenses = Context.gateway.findLicensesForUserAndCodecast(user, codecast);
+    List<License> licenses = Context.licenseGateway.findLicensesForUserAndCodecast(user, codecast);
     for (License l : licenses) {
       if (l.getType() == licenseType)
         return true;

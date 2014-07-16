@@ -1,5 +1,6 @@
-package cleancoderscom;
+package cleancoderscom.tests;
 
+import cleancoderscom.*;
 import de.bechte.junit.runners.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,14 +16,13 @@ import static org.junit.Assert.*;
 
 @RunWith(HierarchicalContextRunner.class)
 public class PresentCodecastUseCaseTest {
-
   private User user;
   private PresentCodecastUseCase useCase;
 
   @Before
   public void setUp() {
-    Context.gateway = new MockGateway();
-    user = Context.gateway.save(new User("User"));
+    TestSetup.addInMemoryGatewaysToContext();
+    user = Context.userGateway.save(new User("User"));
     useCase = new PresentCodecastUseCase();
   }
 
@@ -40,7 +40,7 @@ public class PresentCodecastUseCaseTest {
 
     @Before
     public void setupCodecast() {
-      codecast = Context.gateway.save(new Codecast());
+      codecast = Context.codecastGateway.save(new Codecast());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class PresentCodecastUseCaseTest {
       @Before
       public void setupLicense() {
         viewLicense = new License(VIEWING, user, codecast);
-        Context.gateway.save(viewLicense);
+        Context.licenseGateway.save(viewLicense);
       }
 
       @Test
@@ -85,13 +85,13 @@ public class PresentCodecastUseCaseTest {
 
       @Test
       public void unlicensedUserCannotViewOtherUsersCodecast() throws Exception {
-        User otherUser = Context.gateway.save(new User("otherUser"));
+        User otherUser = Context.userGateway.save(new User("otherUser"));
         assertFalse(useCase.isLicensedFor(VIEWING, otherUser, codecast));
       }
 
       @Test
       public void presentedCodecastIsViewable() throws Exception {
-        Context.gateway.save(new License(VIEWING, user, codecast));
+        Context.licenseGateway.save(new License(VIEWING, user, codecast));
         List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
         PresentableCodecast presentableCodecast = presentableCodecasts.get(0);
         assertTrue(presentableCodecast.isViewable);
@@ -104,7 +104,7 @@ public class PresentCodecastUseCaseTest {
       @Before
       public void setupDownloadLicense() {
         downloadLicense = new License(DOWNLOADING, user, codecast);
-        Context.gateway.save(downloadLicense);
+        Context.licenseGateway.save(downloadLicense);
       }
 
       @Test

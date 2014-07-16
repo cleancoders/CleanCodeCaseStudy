@@ -1,6 +1,7 @@
-package cleancoderscom.fixtures;
+package cleancoderscom.tests.fixtures;
 
 import cleancoderscom.*;
+import cleancoderscom.tests.TestSetup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +14,16 @@ public class CodecastPresentation {
   public static GateKeeper gateKeeper = new GateKeeper();
 
   public CodecastPresentation() {
-    Context.gateway = new MockGateway();
+    TestSetup.addInMemoryGatewaysToContext();
   }
 
   public boolean addUser(String username) {
-    Context.gateway.save(new User(username));
+    Context.userGateway.save(new User(username));
     return true;
   }
 
   public boolean loginUser(String username) {
-    User user = Context.gateway.findUserByName(username);
+    User user = Context.userGateway.findUserByName(username);
     if (user != null) {
       gateKeeper.setLoggedInUser(user);
       return true;
@@ -32,18 +33,18 @@ public class CodecastPresentation {
   }
 
   public boolean createLicenseForViewing(String username, String codecastTitle) {
-    User user = Context.gateway.findUserByName(username);
-    Codecast codecast = Context.gateway.findCodecastByTitle(codecastTitle);
+    User user = Context.userGateway.findUserByName(username);
+    Codecast codecast = Context.codecastGateway.findCodecastByTitle(codecastTitle);
     License license = new License(VIEWING, user, codecast);
-    Context.gateway.save(license);
+    Context.licenseGateway.save(license);
     return useCase.isLicensedFor(VIEWING, user, codecast);
   }
 
   public boolean createLicenseForDownloading(String username, String codecastTitle) {
-    User user = Context.gateway.findUserByName(username);
-    Codecast codecast = Context.gateway.findCodecastByTitle(codecastTitle);
+    User user = Context.userGateway.findUserByName(username);
+    Codecast codecast = Context.codecastGateway.findCodecastByTitle(codecastTitle);
     License license = new License(DOWNLOADING, user, codecast);
-    Context.gateway.save(license);
+    Context.licenseGateway.save(license);
     return useCase.isLicensedFor(DOWNLOADING, user, codecast);
   }
 
@@ -52,11 +53,11 @@ public class CodecastPresentation {
   }
 
   public boolean clearCodecasts() {
-    List<Codecast> codecasts = Context.gateway.findAllCodecastsSortedChronologically();
+    List<Codecast> codecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
     for (Codecast codecast : new ArrayList<Codecast>(codecasts)) {
-      Context.gateway.delete(codecast);
+      Context.codecastGateway.delete(codecast);
     }
-    return Context.gateway.findAllCodecastsSortedChronologically().size() == 0;
+    return Context.codecastGateway.findAllCodecastsSortedChronologically().size() == 0;
   }
 
   public int countOfCodecastsPresented() {

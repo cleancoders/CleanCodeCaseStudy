@@ -2,7 +2,7 @@ package cleancoderscom;
 
 import java.util.Objects;
 
-public class Entity {
+public class Entity implements Cloneable {
   private String id;
 
   public boolean isSame(Entity entity) {
@@ -15,5 +15,9 @@ public class Entity {
 
   public String getId() {
     return id;
+  }
+
+  public Object clone() throws CloneNotSupportedException {
+    return super.clone();
   }
 }
