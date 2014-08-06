@@ -2,9 +2,11 @@ package cleancoderscom.tests.socketserver;
 
 import cleancoderscom.socketserver.SocketServer;
 import cleancoderscom.socketserver.SocketService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import static junit.framework.TestCase.assertFalse;
@@ -22,6 +24,11 @@ public class SocketServerTest {
     service = new FakeSocketService();
     port = 8042;
     server = new SocketServer(port, service);
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    server.stop();
   }
 
   @Test
@@ -53,6 +60,11 @@ public class SocketServerTest {
 
     public void serve(Socket s) {
       connections++;
+      try {
+        s.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 }
