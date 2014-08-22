@@ -15,13 +15,13 @@ import static org.junit.Assert.assertTrue;
 
 
 public class SocketServerTest {
-  private FakeSocketService service;
+  private ClosingSocketService service;
   private SocketServer server;
   private int port;
 
   @Before
   public void setUp() throws Exception {
-    service = new FakeSocketService();
+    service = new ClosingSocketService();
     port = 8042;
     server = new SocketServer(port, service);
   }
@@ -55,24 +55,30 @@ public class SocketServerTest {
   }
 
   @Test
-  public void canSendAndReceiveData() throws Exception {
+  public void acceptsMultipleIncomingConnections() throws Exception {
     server.start();
-    Socket s = new Socket("localhost", port);
-    OutputStream os = s.getOutputStream();
-    os.write("hello\n".getBytes());
-    service.readMessage();
+    new Socket("localhost", port);
+    new Socket("localhost", port);
     server.stop();
 
-    assertEquals("hello", service.message);
+    assertEquals(2, service.connections);
   }
 
-  public static class FakeSocketService implements SocketService {
+//  @Test
+//  public void canSendAndReceiveData() throws Exception {
+//    server.start();
+//    Socket s = new Socket("localhost", port);
+//    OutputStream os = s.getOutputStream();
+//    os.write("hello\n".getBytes());
+//    server.stop();
+//
+//    assertEquals("hello", service.message);
+//  }
+
+  public static class ClosingSocketService implements SocketService {
     public int connections;
-    public String message;
-    Socket socket;
 
     public void serve(Socket s) {
-      socket = s;
       connections++;
       try {
         s.close();
@@ -80,13 +86,25 @@ public class SocketServerTest {
         e.printStackTrace();
       }
     }
+  }
 
-    public void readMessage() throws IOException {
-      InputStream is = socket.getInputStream();
-      InputStreamReader isr = new InputStreamReader(is);
-      BufferedReader br = new BufferedReader(isr);
+  public static class FakeSocketService implements SocketService {
+    public int connections;
+    public String message;
 
-      message = br.readLine();
+    public void serve(Socket s) {
+      connections++;
+      try {
+        InputStream is = s.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+
+        message = br.readLine();
+
+        s.close();
+      } catch(IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 }

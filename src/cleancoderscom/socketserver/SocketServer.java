@@ -33,9 +33,16 @@ public class SocketServer {
     Runnable connectionHandler = new Runnable() {
       public void run() {
         try {
-          Socket serviceSocket = serverSocket.accept();
-          service.serve(serviceSocket);
-        } catch (IOException e) {
+          while(running) {
+            Socket serviceSocket = serverSocket.accept();
+            executor.execute(new Runnable() {
+              @Override
+              public void run() {
+                service.serve(serviceSocket);
+              }
+            });
+          }
+        } catch(IOException e) {
           if(running)
             e.printStackTrace();
         }
@@ -51,9 +58,9 @@ public class SocketServer {
   }
 
   public void stop() throws Exception {
-    executor.shutdown();
-    executor.awaitTermination(5000, TimeUnit.MILLISECONDS);
-    serverSocket.close();
     running = false;
+    executor.shutdown();
+    executor.awaitTermination(1000, TimeUnit.MILLISECONDS);
+    serverSocket.close();
   }
 }
