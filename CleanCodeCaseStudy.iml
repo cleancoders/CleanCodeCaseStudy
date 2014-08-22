@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/E5-camtasia" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.clojure:clojure:1.6.0" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:4.11" level="project" />
+    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.fitnesse:fitnesse:20140630" level="project" />
+    <orderEntry type="library" name="Maven: org.htmlparser:htmlparser:2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.htmlparser:htmllexer:2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.velocity:velocity:1.7" level="project" />
+    <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20140107" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.java-diff-utils:diffutils:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jgit:org.eclipse.jgit:2.3.1.201302201838-r" level="project" />
+    <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.46" level="project" />
+    <orderEntry type="library" name="Maven: de.bechte.junit:junit-hierarchicalcontextrunner:4.11.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.clojure:tools.nrepl:0.2.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: clojure-complete:clojure-complete:0.2.3" level="project" />
+  </component>
+</module>
+

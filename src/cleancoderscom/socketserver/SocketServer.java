@@ -51,7 +51,8 @@ public class SocketServer {
   }
 
   public void stop() throws Exception {
-    executor.awaitTermination(500, TimeUnit.MILLISECONDS);
+    executor.shutdown();
+    executor.awaitTermination(5000, TimeUnit.MILLISECONDS);
     serverSocket.close();
     running = false;
   }

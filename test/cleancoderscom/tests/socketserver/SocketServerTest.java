@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 import static junit.framework.TestCase.assertFalse;
@@ -54,17 +54,39 @@ public class SocketServerTest {
     assertEquals(1, service.connections);
   }
 
+  @Test
+  public void canSendAndReceiveData() throws Exception {
+    server.start();
+    Socket s = new Socket("localhost", port);
+    OutputStream os = s.getOutputStream();
+    os.write("hello\n".getBytes());
+    service.readMessage();
+    server.stop();
+
+    assertEquals("hello", service.message);
+  }
 
   public static class FakeSocketService implements SocketService {
     public int connections;
+    public String message;
+    Socket socket;
 
     public void serve(Socket s) {
+      socket = s;
       connections++;
       try {
         s.close();
-      } catch (IOException e) {
+      } catch(IOException e) {
         e.printStackTrace();
       }
+    }
+
+    public void readMessage() throws IOException {
+      InputStream is = socket.getInputStream();
+      InputStreamReader isr = new InputStreamReader(is);
+      BufferedReader br = new BufferedReader(isr);
+
+      message = br.readLine();
     }
   }
 }
