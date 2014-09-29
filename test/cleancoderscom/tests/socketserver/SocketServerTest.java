@@ -11,9 +11,7 @@ import org.junit.runner.RunWith;
 import java.io.*;
 import java.net.Socket;
 
-import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(HierarchicalContextRunner.class)
 public class SocketServerTest {
@@ -123,6 +121,11 @@ public class SocketServerTest {
       server = new SocketServer(port, readingService);
     }
 
+    @After
+    public void tearDown() throws Exception {
+      server.stop();
+    }
+
     @Test
     public void canSendAndReceiveData() throws Exception {
       server.start();
@@ -141,31 +144,44 @@ public class SocketServerTest {
   public static class EchoSocketService extends TestSocketService {
 
     protected void doService(Socket s) throws IOException {
-      //...
+      InputStream is = s.getInputStream();
+      InputStreamReader isr = new InputStreamReader(is);
+      BufferedReader br = new BufferedReader(isr);
+      String message = br.readLine();
+      OutputStream os = s.getOutputStream();
+      os.write(message.getBytes());
+      os.flush();
     }
   }
 
   public class WithEchoSocketService {
-    private ReadingSocketService readingService;
+    private EchoSocketService echoService;
 
     @Before
     public void setup() throws Exception {
-//      readingService = new ReadingSocketService();
-//      server = new SocketServer(port, readingService);
+      echoService = new EchoSocketService();
+      server = new SocketServer(port, echoService);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+      server.stop();
     }
 
     @Test
-    public void canSendAndReceiveData() throws Exception {
-//      server.start();
-//      Socket s = new Socket("localhost", port);
-//      OutputStream os = s.getOutputStream();
-//      os.write("hello\n".getBytes());
-//      synchronized(readingService) {
-//        readingService.wait();
-//      }
-//      server.stop();
-//
-//      assertEquals("hello", readingService.message);
+    public void canEcho() throws Exception {
+      server.start();
+      Socket s = new Socket("localhost", port);
+      OutputStream os = s.getOutputStream();
+      os.write("echo\n".getBytes());
+      synchronized(echoService) {
+        echoService.wait();
+      }
+      InputStream is = s.getInputStream();
+      InputStreamReader isr = new InputStreamReader(is);
+      BufferedReader br = new BufferedReader(isr);
+      String response = br.readLine();
+      assertEquals("echo", response);
     }
   }
 
