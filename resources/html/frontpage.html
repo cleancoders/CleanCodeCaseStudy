@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Clean Coders</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="https://d2glfmtk3gkc81.cloudfront.net/normalize-0258ce8813d44760d3b00269fa57f486.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://d2glfmtk3gkc81.cloudfront.net/base-147329d3a12efde92e44185dffe740fe.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://d2glfmtk3gkc81.cloudfront.net/home-fec4dc6751df751f9a051b0ff5ebed0f.css" rel="stylesheet"
+          type="text/css">
+</head>
+<body>
+<div id="faux-background"></div>
+<header id="top-header">
+    <div class="container">
+        <div id="logo"><a href="/"><img src="https://d26o5k45lnmm4v.cloudfront.net/logo@2x-v2.png"></a></div>
+        <div id="hamburger"><a href="#" id="hamburger-button">&#9776;</a></div>
+        <div class="hidden" id="navbar"><a class="current link" href="/" id="navlink">videos</a><a href="/cart"
+                                                                                                   id="navlink">cart</a>
+
+            <div id="login-link"><a href="/viewer/signin" id="navlink">login / sign-up</a>
+
+                <div id="login-tooltip"><p>Login using your Google account.</p>
+
+                    <p>If you don't have one, you can create one by clicking this link.</p>
+
+                    <p>Or, <a href="/viewer/signin/choose">click here</a> to sign in with a different OpenID provider,
+                        such as Yahoo or an internal corporate OpenID provider.</p></div>
+            </div>
+        </div>
+    </div>
+</header>
+<div id="primary-content">
+    <div id="toppest">
+        <div class="welcome">
+            <div class="container main-welcome">
+                <div class="stuff">
+                    <div class="tagline"><span class="subtitle">Training Videos.</span><span class="subtitle">With Personality.</span><span
+                            class="subtitle">For Software Professionals.</span></div>
+                    <a class="button hero-button" href="/#videos" id="jump-to-videos">See All Videos</a></div>
+            </div>
+        </div>
+        <div class="container"><a name="videos"></a>
+
+            <div class="tabbar clearfix">
+                <div><a class="tab" href="#" id="clean-code-series-button"><span class="category-single-title">Clean Code <span
+                        class="icon-chevron-down"></span></span></a><a class="tab" href="/category/build-an-app#videos"><span
+                        class="category-single-title">Build an App with Corey Haines</span></a><a class="tab"
+                                                                                                  href="/category/java-case-study#videos"><span
+                        class="category-single-title">Java Case Study</span></a></div>
+                <div class="clean-code-tabs"><a class="tab subtab" href="/category/clean-code#videos"><span
+                        class="category-single-title">All Episodes</span></a><a class="tab subtab"
+                                                                                href="/category/fundamentals#videos"><span
+                        class="category-single-title">Fundamentals</span></a><a class="tab subtab"
+                                                                                href="/category/solid-principles#videos"><span
+                        class="category-single-title">SOLID Principles</span></a><a class="tab subtab"
+                                                                                    href="/category/component-design#videos"><span
+                        class="category-single-title">Component Design</span></a><a class="tab subtab"
+                                                                                    href="/category/advanced-tdd#videos"><span
+                        class="category-single-title">Advanced TDD</span></a><a class="tab subtab"
+                                                                                href="/category/design-patterns#videos"><span
+                        class="category-single-title">Design Patterns</span></a></div>
+            </div>
+        </div>
+    </div>
+    <div id="toppest-placeholder"></div>
+    <div class="container" id="videos">
+        <div>
+            <div id="video-section-header"><h2>All Episodes</h2>
+
+                <div class="frontcap">
+                    <div class="buyall"><a class="button" href="/cart/quick-add/all" id="buy-bulk-button">Add all to
+                        cart</a></div>
+                </div>
+                <div class="frontcap clearfix">
+                    <div class="sorter">Sort:<a href="#" id="sort-by-episode"><span>&nbsp;</span>Episode</a><a href="#"
+                                                                                                               id="sort-by-published"><span>&nbsp;</span>Published</a><a
+                            href="#" id="sort-by-purchased"><span>&nbsp;</span>Purchased</a></div>
+                </div>
+            </div>
+            <div class="videos" data-order="asc">
+                ${CODECASTS}
+            </div>
+            <div class="clearfix" id="sidebar">
+                <div class="cart box"><h2 class="title"><span class="header-icon icon-shopping-cart"></span> Cart
+                    Preview</h2>
+
+                    <div class="section"><p class="empty">Your cart is empty!</p>
+
+                        <p class="empty">Add some videos by clicking the links in the rows on the left.</p></div>
+                </div>
+                <div class="box" id="buy-gift-card"><h2 class="title"><span class="header-icon icon-gift"></span> Buy a
+                    Gift Card</h2>
+
+                    <div class="section"><p>Gift cards are a great way to share our videos with colleagues or
+                        employees.</p>
+
+                        <p>
+
+                        <div id="sell-gift-card-form">
+                            <form action="/cart/buy-gift-card" class="sell-gift-card" method="post"><label>Amount: $
+                                <input id="sell-gift-card-amount" name="amount" type="text" value="20"></label><input
+                                    class="button" type="submit" value="Add to Cart"></form>
+                        </div>
+                        </p></div>
+                </div>
+                <div class="box" id="recent-news"><h2 class="title"><span class="header-icon icon-beaker"></span> Blog
+                </h2>
+
+                    <div class="section">
+                        <ul>
+                            <li><a class="article-title" href="/news/2013-12-19-merry-christmas-2013--a-tribute-to-xp">Merry
+                                Christmas: 2013. A Tribute to XP.</a><span class="metadata">Dec 19, 2013</span></li>
+                            <li><a class="article-title" href="/news/2013-10-28-one-click-checkout-with-credit-cards">One-click
+                                checkout with credit cards</a><span class="metadata">Oct 28, 2013</span></li>
+                            <li><a class="article-title" href="/news/2013-10-22-new-design">New Design</a><span
+                                    class="metadata">Oct 22, 2013</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box" id="cc-and-your-business"><h2 class="title"><span class="header-icon icon-film"></span>
+                    Clean Code Sampler</h2>
+
+                    <div class="section"><p class="wording">Curious what a Clean Code video looks like? Check out this
+                        short montage of our episodes and see for yourself!</p><a class="image"
+                                                                                  href="http://www.youtube.com/watch?v=SXkgYZw0evs"><img
+                            src="https://d26o5k45lnmm4v.cloudfront.net/youtube-promo-thumb-v2.png"></a></div>
+                </div>
+                <div class="box" id="twitter-feed"><h2 class="title"><span class="header-icon icon-twitter"></span>
+                    Tweets</h2>
+
+                    <div class="section"><a class="twitter-timeline"
+                                            data-chrome="noheader nofooter noborders transparent"
+                                            data-widget-id="356820359141523457"
+                                            href="https://twitter.com/search?q=%40thecleancoders">Tweets about
+                        "@thecleancoders"</a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                </div>
+                <div class="box" id="cc-and-your-business"><h2 class="title"><span
+                        class="header-icon icon-group"></span> Clean Code & Your Business</h2>
+
+                    <div class="section"><p class="wording">Watch this short video to learn how Clean Code videos can
+                        help your business.</p><a class="image" href="/promotions/the_business_case"><img
+                            src="https://d26o5k45lnmm4v.cloudfront.net/business-case.png"></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer1">
+    <div class="container"><a href="/cleancoders/contact">Contact</a><a href="/news">Blog</a><a href="/legal/privacy">Privacy</a><a
+            href="/legal/eula">User Agreement</a><a href="/cleancoders/license-levels">About Licenses</a></div>
+</div>
+<div id="footer2">
+    <div class="container">
+        <div>
+            <div id="social-media-links"><a class="facebook icon-facebook" href="http://facebook.com/cleancoders"
+                                            target="_blank"></a><a class="youtube icon-youtube"
+                                                                   href="http://youtube.com/cleancoders"
+                                                                   target="_blank"></a><a class="twitter icon-twitter"
+                                                                                          href="http://twitter.com/thecleancoders"
+                                                                                          target="_blank"></a><a
+                    class="google-plus icon-google-plus" href="https://plus.google.com/115933035214395982393/posts"
+                    target="_blank"></a></div>
+            <div>&copy; 2014 Clean Coders, LLC.<br>All Rights Reserved.</div>
+        </div>
+        <form action="//cleancoders.us4.list-manage.com/subscribe/post?u=14e8b2099c4f805976ce41224&amp;amp;id=77b7c4f42c"
+              id="mailing-list" method="post" name="mc-embedded-subscribe-form" target="_blank">Get Clean Coders Emails
+            <fieldset>
+                <div class="mimi_field text"><input id="signup_first_name" name="FNAME" placeholder="Name" type="text">
+
+                    <div class="mimi_field_feedback"></div>
+                    <span class="mimi_funk"></span></div>
+                <div class="mimi_field text email required"><input class="required" id="signup_email" name="EMAIL"
+                                                                   placeholder="Email" type="text">
+
+                    <div class="mimi_field_feedback"></div>
+                    <span class="mimi_funk"></span></div>
+                <div class="mimi_field action"><input class="button submit" data-default-text="Sign up!"
+                                                      data-invalid-text="↑ You forgot some required fields"
+                                                      data-submitting-text="Sending…" id="webform_submit_button"
+                                                      name="subscribe" type="submit" value="Receive emails"></div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://d2glfmtk3gkc81.cloudfront.net/global-6d284cbb3e08974ee34d4aa5f9dd0bf5.js"
+        type="text/javascript"></script>
+<script src="https://d2glfmtk3gkc81.cloudfront.net/jquery.tinysort.min-2038383d9527f55ad852ae8478786c1f.js"
+        type="text/javascript"></script>
+<script src="https://d2glfmtk3gkc81.cloudfront.net/jquery.cookie-709791abb63c1f3d1bd9ef616e42067f.js"
+        type="text/javascript"></script>
+<script src="https://d2glfmtk3gkc81.cloudfront.net/home-947c1411a90916e4c1a153db785b1eb2.js"
+        type="text/javascript"></script>
+</body>
+</html>

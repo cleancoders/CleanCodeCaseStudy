@@ -9,4 +9,5 @@ cleancoderscom.iml
 fitnesse-standalone.jar
 target
 *camtasia
-
+.DS_Store
+.lein-failures

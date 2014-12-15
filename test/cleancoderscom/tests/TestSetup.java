@@ -37,6 +37,6 @@ public class TestSetup {
     Context.userGateway.save(bob);
     Context.userGateway.save(micah);
 
-    Context.
+//    Context.
   }
 }
