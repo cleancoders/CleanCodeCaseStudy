@@ -2,7 +2,12 @@ package cleancoderscom.tests.utilities;
 
 import cleancoderscom.socketserver.SocketServer;
 import cleancoderscom.tests.TestSetup;
+
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 public class Main {
@@ -30,6 +35,13 @@ public class Main {
   }
 
   public static String getFrontPage() {
-    return "Gunk";
+    URL frontPageURL = ClassLoader.getSystemResource("html/frontpage.html");
+    try {
+      byte[] frontPageBytes = Files.readAllBytes(Paths.get(frontPageURL.getPath()));
+      return new String(frontPageBytes);
+    } catch(IOException e) {
+      e.printStackTrace();
+      return "Gunk";
+    }
   }
 }
