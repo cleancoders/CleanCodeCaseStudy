@@ -1,9 +1,10 @@
 package cleancoderscom.tests.utilities;
 
+import cleancoderscom.PresentCodecastUseCase;
 import cleancoderscom.socketserver.SocketServer;
 import cleancoderscom.tests.TestSetup;
+import cleancoderscom.view.ViewTemplate;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -35,13 +36,21 @@ public class Main {
   }
 
   public static String getFrontPage() {
-    URL frontPageURL = ClassLoader.getSystemResource("html/frontpage.html");
+
+//    PresentCodecastUseCase useCase =
     try {
-      byte[] frontPageBytes = Files.readAllBytes(Paths.get(frontPageURL.getPath()));
-      return new String(frontPageBytes);
+      ViewTemplate frontPageTemplate = ViewTemplate.create("html/frontpage.html");
+      ViewTemplate codecastTemplate = ViewTemplate.create("html/codecast.html");
+
+      codecastTemplate.replace("title", "Episode 1: The Beginning!");
+
+      String codecastView = codecastTemplate.getContent(); // for the moment
+      frontPageTemplate.replace("codecasts", codecastView);
+      return frontPageTemplate.getContent();
     } catch(IOException e) {
       e.printStackTrace();
       return "Gunk";
     }
   }
+
 }
