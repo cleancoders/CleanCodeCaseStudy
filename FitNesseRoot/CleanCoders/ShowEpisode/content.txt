@@ -5,7 +5,7 @@
 -!| script |
 | given user U |
 | with user U logged in |
-|when the user requests details for codecast episode-1|
-| then the presented title is A, published 3/1/2014 |
+| when the user requests details for codecast episode-1 |
+| then the presented title is A, published 3/01/2014 |
 | with option to purchase viewing license |
 | with option to purchase download license |

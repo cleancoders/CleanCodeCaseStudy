@@ -25,9 +25,8 @@ public class GivenCodecasts {
   public void execute() throws ParseException {
     Codecast codecast = new Codecast();
     codecast.setTitle(title);
-    System.out.println(publicationDate);
-    System.out.println(dateFormat.parse(publicationDate));
     codecast.setPublicationDate(dateFormat.parse(publicationDate));
+    codecast.setPermalink(permalink);
     Context.codecastGateway.save(codecast);
   }
 

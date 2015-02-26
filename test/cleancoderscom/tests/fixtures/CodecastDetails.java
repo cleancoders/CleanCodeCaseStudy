@@ -2,15 +2,17 @@ package cleancoderscom.tests.fixtures;
 
 import cleancoderscom.CodecastDetailsUseCase;
 import cleancoderscom.Context;
+import cleancoderscom.PresentableCodecastDetails;
 
 public class CodecastDetails {
 
   private CodecastDetailsUseCase useCase = new CodecastDetailsUseCase();
+  private PresentableCodecastDetails details;
 
   public boolean requestCodecast(String permalink)
   {
-    useCase.requestCodecastDetails(Context.gateKeeper.getLoggedInUser(), permalink);
-    return false;
+    details = useCase.requestCodecastDetails(Context.gateKeeper.getLoggedInUser(), permalink);
+    return details != null;
   }
 
   public boolean codecastDetailsOfferPurchaseOf(String licenseType)
@@ -19,10 +21,10 @@ public class CodecastDetails {
   }
 
   public String codecastDetailsTitle() {
-    return "TILT";
+    return details.title;
   }
 
   public String codecastDetailsDate() {
-    return "TILT";
+    return details.publicationDate;
   }
 }

@@ -31,6 +31,6 @@ public class CodecastDetailsUseCaseTest {
     PresentableCodecastDetails details = userCase.requestCodecastDetails(user, "permalink-a");
 
     assertEquals("Codecast", details.title);
-    assertEquals("1/2/2015", details.publicationDate);
+    assertEquals("1/02/2015", details.publicationDate);
   }
 }

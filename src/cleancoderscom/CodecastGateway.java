@@ -10,4 +10,6 @@ public interface CodecastGateway {
   Codecast save(Codecast codecast);
 
   Codecast findCodecastByTitle(String codecastTitle);
+
+  Codecast findCodecastByPermalink(String permalink);
 }
