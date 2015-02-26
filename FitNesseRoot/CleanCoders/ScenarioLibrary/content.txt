@@ -27,4 +27,4 @@
 | check | codecast details date | @date |
 
 | scenario | with option to purchase _ license | licenseType |
-| check | codecast details offer purchase of | @licenseType |
+| codecast details offer purchase of | @licenseType |

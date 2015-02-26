@@ -10,6 +10,7 @@ public class GivenCodecasts {
   private String title;
   private String publicationDate;
   private static SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
+  private String permalink;
 
   public void setTitle(String title) {
     this.title = title;
@@ -18,6 +19,8 @@ public class GivenCodecasts {
   public void setPublished(String publicationDate) {
     this.publicationDate = publicationDate;
   }
+
+  public void setPermalink(String permalink) {this.permalink = permalink;}
 
   public void execute() throws ParseException {
     Codecast codecast = new Codecast();

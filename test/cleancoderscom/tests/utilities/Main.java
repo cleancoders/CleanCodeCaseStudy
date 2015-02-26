@@ -24,6 +24,7 @@ public class Main {
         String frontPage = getFrontPage();
         String response = makeResponse(frontPage);
         s.getOutputStream().write(response.getBytes());
+        s.close();
       } catch(IOException e) {
         e.printStackTrace();
       }

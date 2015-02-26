@@ -1,7 +1,8 @@
-|import|
-|cleancoderscom.tests.fixtures|
+| import |
+| cleancoderscom.tests.fixtures |
 
-|library|
-|codecast presentation|
+| library |
+| codecast presentation |
+| codecast details |
 
-|Fixture setup|
+| Fixture setup |
