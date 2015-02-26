@@ -5,6 +5,7 @@ import java.util.Date;
 public class Codecast extends Entity {
   private String title;
   private Date publicationDate = new Date();
+  private String permalink;
 
   public void setTitle(String title) {
     this.title = title;
@@ -20,5 +21,13 @@ public class Codecast extends Entity {
 
   public Date getPublicationDate() {
     return publicationDate;
+  }
+
+  public void setPermalink(String permalink) {
+    this.permalink = permalink;
+  }
+
+  public String getPermalink() {
+    return permalink;
   }
 }

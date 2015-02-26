@@ -8,7 +8,7 @@ import static cleancoderscom.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.License.LicenseType.VIEWING;
 
 public class PresentCodecastUseCase {
-  private static SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy");
+  public static SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy");
 
   public List<PresentableCodecast> presentCodecasts(User loggedInUser) {
     ArrayList<PresentableCodecast> presentableCodecasts = new ArrayList<PresentableCodecast>();
