@@ -5,10 +5,14 @@ public class CodecastDetailsUseCase {
     PresentableCodecastDetails details = new PresentableCodecastDetails();
 
     Codecast codecast = Context.codecastGateway.findCodecastByPermalink(permalink);
-    //TODO - MDM - add test for null codecast
-
-    details.title = codecast.getTitle();
-    details.publicationDate = PresentCodecastUseCase.dateFormat.format(codecast.getPublicationDate());
-    return details ;
+    if (codecast == null) {
+      details.wasFound = false;
+      return details;
+    }
+    else {
+      details.wasFound = true;
+      CodecastSummaryUseCase.formatSummaryFields(loggedInUser, codecast, details);
+      return details;
+    }
   }
 }

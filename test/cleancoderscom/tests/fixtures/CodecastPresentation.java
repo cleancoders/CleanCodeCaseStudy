@@ -10,7 +10,7 @@ import static cleancoderscom.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.License.LicenseType.VIEWING;
 
 public class CodecastPresentation {
-  private PresentCodecastUseCase useCase = new PresentCodecastUseCase();
+  private CodecastSummaryUseCase useCase = new CodecastSummaryUseCase();
 
   public CodecastPresentation() {
     TestSetup.setupContext();
@@ -60,7 +60,7 @@ public class CodecastPresentation {
   }
 
   public int countOfCodecastsPresented() {
-    List<PresentableCodecast> presentations = useCase.presentCodecasts(Context.gateKeeper.getLoggedInUser());
+    List<PresentableCodecastSummary> presentations = useCase.presentCodecasts(Context.gateKeeper.getLoggedInUser());
     return presentations.size();
   }
 }

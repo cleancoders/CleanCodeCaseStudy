@@ -1,17 +1,14 @@
 package cleancoderscom.tests.utilities;
 
 import cleancoderscom.Context;
-import cleancoderscom.PresentCodecastUseCase;
-import cleancoderscom.PresentableCodecast;
+import cleancoderscom.CodecastSummaryUseCase;
+import cleancoderscom.PresentableCodecastSummary;
 import cleancoderscom.User;
 import cleancoderscom.socketserver.SocketServer;
 import cleancoderscom.tests.TestSetup;
 import cleancoderscom.view.ViewTemplate;
 
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -42,15 +39,15 @@ public class Main {
 
   public static String getFrontPage() {
 
-    PresentCodecastUseCase useCase = new PresentCodecastUseCase();
+    CodecastSummaryUseCase useCase = new CodecastSummaryUseCase();
     User bob = Context.userGateway.findUserByName("Bob");
-    List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(bob);
+    List<PresentableCodecastSummary> presentableCodecasts = useCase.presentCodecasts(bob);
 
     try {
       ViewTemplate frontPageTemplate = ViewTemplate.create("html/frontpage.html");
 
       StringBuilder codecastLines = new StringBuilder();
-      for(PresentableCodecast presentableCodecast : presentableCodecasts) {
+      for(PresentableCodecastSummary presentableCodecast : presentableCodecasts) {
 
         ViewTemplate codecastTemplate = ViewTemplate.create("html/codecast.html");
         codecastTemplate.replace("title", presentableCodecast.title);

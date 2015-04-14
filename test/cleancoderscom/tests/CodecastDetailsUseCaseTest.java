@@ -4,8 +4,6 @@ import cleancoderscom.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
-
 import static org.junit.Assert.assertEquals;
 
 public class CodecastDetailsUseCaseTest {
@@ -24,7 +22,7 @@ public class CodecastDetailsUseCaseTest {
     Codecast codecast = new Codecast();
     codecast.setTitle("Codecast");
     codecast.setPermalink("permalink-a");
-    codecast.setPublicationDate(PresentCodecastUseCase.dateFormat.parse("1/2/2015"));
+    codecast.setPublicationDate(CodecastSummaryUseCase.dateFormat.parse("1/2/2015"));
     Context.codecastGateway.save(codecast);
 
     CodecastDetailsUseCase userCase = new CodecastDetailsUseCase();
@@ -32,5 +30,13 @@ public class CodecastDetailsUseCaseTest {
 
     assertEquals("Codecast", details.title);
     assertEquals("1/02/2015", details.publicationDate);
+  }
+
+  @Test
+  public void doesntCrashOnMissingCodecast() throws Exception {
+    CodecastDetailsUseCase userCase = new CodecastDetailsUseCase();
+    PresentableCodecastDetails details = userCase.requestCodecastDetails(user, "missing");
+
+    assertEquals(false, details.wasFound);
   }
 }

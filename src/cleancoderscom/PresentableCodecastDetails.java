@@ -1,6 +1,5 @@
 package cleancoderscom;
 
-public class PresentableCodecastDetails {
-  public String title;
-  public String publicationDate;
+public class PresentableCodecastDetails extends PresentableCodecastSummary {
+  public boolean wasFound;
 }

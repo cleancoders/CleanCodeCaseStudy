@@ -1,6 +1,6 @@
 package cleancoderscom;
 
-public class PresentableCodecast {
+public class PresentableCodecastSummary {
   public boolean isViewable;
   public String title;
   public String publicationDate;

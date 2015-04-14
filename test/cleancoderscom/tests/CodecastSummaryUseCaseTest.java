@@ -15,21 +15,21 @@ import static cleancoderscom.License.LicenseType.VIEWING;
 import static org.junit.Assert.*;
 
 @RunWith(HierarchicalContextRunner.class)
-public class PresentCodecastUseCaseTest {
+public class CodecastSummaryUseCaseTest {
   private User user;
-  private PresentCodecastUseCase useCase;
+  private CodecastSummaryUseCase useCase;
 
   @Before
   public void setUp() {
     TestSetup.setupContext();
     user = Context.userGateway.save(new User("User"));
-    useCase = new PresentCodecastUseCase();
+    useCase = new CodecastSummaryUseCase();
   }
 
   public class GivenNoCodecasts {
     @Test
     public void noneArePresented() throws Exception {
-      List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
+      List<PresentableCodecastSummary> presentableCodecasts = useCase.presentCodecasts(user);
 
       assertEquals(0, presentableCodecasts.size());
     }
@@ -50,10 +50,10 @@ public class PresentCodecastUseCaseTest {
       codecast.setPublicationDate(now);
       Context.codecastGateway.save(codecast);
 
-      List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
+      List<PresentableCodecastSummary> presentableCodecasts = useCase.presentCodecasts(user);
 
       assertEquals(1, presentableCodecasts.size());
-      PresentableCodecast presentableCodecast = presentableCodecasts.get(0);
+      PresentableCodecastSummary presentableCodecast = presentableCodecasts.get(0);
       assertEquals("Some Title", presentableCodecast.title);
       assertEquals("5/19/2014", presentableCodecast.publicationDate);
     }
@@ -66,8 +66,8 @@ public class PresentCodecastUseCaseTest {
 
       @Test
       public void presentedCodecastShowsNotViewable() throws Exception {
-        List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
-        PresentableCodecast presentableCodecast = presentableCodecasts.get(0);
+        List<PresentableCodecastSummary> presentableCodecasts = useCase.presentCodecasts(user);
+        PresentableCodecastSummary presentableCodecast = presentableCodecasts.get(0);
         assertFalse(presentableCodecast.isViewable);
       }
     }
@@ -96,8 +96,8 @@ public class PresentCodecastUseCaseTest {
       @Test
       public void presentedCodecastIsViewable() throws Exception {
         Context.licenseGateway.save(new License(VIEWING, user, codecast));
-        List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
-        PresentableCodecast presentableCodecast = presentableCodecasts.get(0);
+        List<PresentableCodecastSummary> presentableCodecasts = useCase.presentCodecasts(user);
+        PresentableCodecastSummary presentableCodecast = presentableCodecasts.get(0);
         assertTrue(presentableCodecast.isViewable);
       }
     }
@@ -113,8 +113,8 @@ public class PresentCodecastUseCaseTest {
 
       @Test
       public void presentedCodecastIsDownloadable() throws Exception {
-        List<PresentableCodecast> presentableCodecasts = useCase.presentCodecasts(user);
-        PresentableCodecast presentableCodecast = presentableCodecasts.get(0);
+        List<PresentableCodecastSummary> presentableCodecasts = useCase.presentCodecasts(user);
+        PresentableCodecastSummary presentableCodecast = presentableCodecasts.get(0);
         assertTrue(presentableCodecast.isDownloadable);
         assertFalse(presentableCodecast.isViewable);
       }

@@ -74,6 +74,7 @@ public class SocketServerTest {
 
     @Test
     public void acceptsAnIncomingConnection() throws Exception {
+      // TODO - MDM - Possible Race Condition?  Have seen hanging test.
       server.start();
       new Socket("localhost", port);
       synchronized(service) {
