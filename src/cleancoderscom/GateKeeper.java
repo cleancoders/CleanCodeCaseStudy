@@ -1,5 +1,7 @@
 package cleancoderscom;
 
+import cleancoderscom.entities.User;
+
 public class GateKeeper {
   private User loggedInUser;
 
