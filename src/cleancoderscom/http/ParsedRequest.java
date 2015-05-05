@@ -8,4 +8,7 @@ public class ParsedRequest {
     this.method = method;
     this.path = path;
   }
+
+  public ParsedRequest() {
+  }
 }
