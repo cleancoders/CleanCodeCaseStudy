@@ -8,7 +8,9 @@ import cleancoderscom.socketserver.SocketServer;
 import cleancoderscom.TestSetup;
 import cleancoderscom.view.ViewTemplate;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 
@@ -18,6 +20,8 @@ public class Main {
     TestSetup.setupSampleData();
     SocketServer server = new SocketServer(8080, s -> {
       try {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        System.out.println(reader.readLine());
         String frontPage = getFrontPage();
         String response = makeResponse(frontPage);
         s.getOutputStream().write(response.getBytes());
@@ -52,6 +56,7 @@ public class Main {
         ViewTemplate codecastTemplate = ViewTemplate.create("html/codecast.html");
         codecastTemplate.replace("title", presentableCodecast.title);
         codecastTemplate.replace("publicationDate", presentableCodecast.publicationDate);
+        codecastTemplate.replace("permalink", presentableCodecast.permalink);
 
         //staged
         codecastTemplate.replace("thumbnail", "https://d26o5k45lnmm4v.cloudfront.net/YmluYXJ5OjIxNzA1Nw");

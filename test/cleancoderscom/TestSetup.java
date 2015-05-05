@@ -32,10 +32,12 @@ public class TestSetup {
     Codecast e1 = new Codecast();
     e1.setTitle("Episode 1 - The Beginning");
     e1.setPublicationDate(new Date());
+    e1.setPermalink("e1");
 
     Codecast e2 = new Codecast();
     e2.setTitle("Episode 2 - The Continuation");
     e2.setPublicationDate(new Date(e1.getPublicationDate().getTime() + 1));
+    e2.setPermalink("e2");
 
     Context.codecastGateway.save(e1);
     Context.codecastGateway.save(e2);

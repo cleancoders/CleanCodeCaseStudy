@@ -36,6 +36,7 @@ public class CodecastSummariesUseCase {
     cc.publicationDate = dateFormat.format(codecast.getPublicationDate());
     cc.isViewable = isLicensedFor(VIEWING, loggedInUser, codecast);
     cc.isDownloadable = isLicensedFor(DOWNLOADING, loggedInUser, codecast);
+    cc.permalink = codecast.getPermalink();
   }
 
   public static boolean isLicensedFor(License.LicenseType licenseType, User user, Codecast codecast) {

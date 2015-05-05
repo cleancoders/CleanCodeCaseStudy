@@ -52,6 +52,7 @@ public class CodecastSummariesUseCaseTest {
       codecast.setTitle("Some Title");
       Date now = new GregorianCalendar(2014, 4, 19).getTime();
       codecast.setPublicationDate(now);
+      codecast.setPermalink("permalink");
       Context.codecastGateway.save(codecast);
 
       List<PresentableCodecastSummary> presentableCodecasts = useCase.presentCodecasts(user);
@@ -60,6 +61,7 @@ public class CodecastSummariesUseCaseTest {
       PresentableCodecastSummary presentableCodecast = presentableCodecasts.get(0);
       assertEquals("Some Title", presentableCodecast.title);
       assertEquals("5/19/2014", presentableCodecast.publicationDate);
+      assertEquals("permalink", presentableCodecast.permalink);
     }
 
     public class GivenNoLicenses {
