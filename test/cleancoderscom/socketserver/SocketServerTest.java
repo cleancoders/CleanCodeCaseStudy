@@ -127,6 +127,7 @@ public class SocketServerTest {
 
     @Test
     public void canSendAndReceiveData() throws Exception {
+      // TODO - MDM - Possible Race Condition?  Have seen hanging test.
       server.start();
       Socket s = new Socket("localhost", port);
       OutputStream os = s.getOutputStream();
@@ -169,6 +170,7 @@ public class SocketServerTest {
 
     @Test
     public void canEcho() throws Exception {
+      // TODO - MDM - Possible Race Condition?  Have seen hanging test.
       server.start();
       Socket s = new Socket("localhost", port);
       OutputStream os = s.getOutputStream();
