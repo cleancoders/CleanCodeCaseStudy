@@ -31,6 +31,7 @@ public class CodecastSummariesUseCase {
     return cc;
   }
 
+  // TODO - Extract Presenter
   public static void formatSummaryFields(User loggedInUser, Codecast codecast, PresentableCodecastSummary cc) {
     cc.title = codecast.getTitle();
     cc.publicationDate = dateFormat.format(codecast.getPublicationDate());

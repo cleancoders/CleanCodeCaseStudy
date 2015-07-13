@@ -23,6 +23,7 @@ public class Main {
   public static void main(String[] args) throws Exception {
     Router router = new Router();
     router.addPath("", new CodecastSummariesController());
+    // TODO - Add this Controller
 //    router.addPath("episode", new CodecastDetailsController());
 
 
@@ -35,6 +36,7 @@ public class Main {
         if (response != null)
           s.getOutputStream().write(response.getBytes());
         else
+          // TODO - Router should take care of 404
           s.getOutputStream().write("HTTP/1.1 404 OK\n".getBytes());
         s.close();
       } catch(IOException e) {
@@ -61,11 +63,13 @@ public class Main {
 
   public static String getFrontPage() {
 
+    // TODO - This belongs in the Controller
     CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
     User bob = Context.userGateway.findUserByName("Bob");
     List<PresentableCodecastSummary> presentableCodecasts = useCase.presentCodecasts(bob);
 
     try {
+    // TODO - This is the View
       ViewTemplate frontPageTemplate = ViewTemplate.create("html/frontpage.html");
 
       StringBuilder codecastLines = new StringBuilder();
