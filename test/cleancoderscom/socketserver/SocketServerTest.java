@@ -15,25 +15,36 @@ import static org.junit.Assert.*;
 public class SocketServerTest {
   private ClosingSocketService service;
   private SocketServer server;
-  private int port;
-
-  @Before
-  public void setup() {
-    port = 8042;
-  }
+  private int port = 8042;
 
   public static abstract class TestSocketService implements SocketService {
+    public boolean waiting = false;
+
     public void serve(Socket s) {
       try {
         doService(s);
-        synchronized(this) { notify(); }
+        synchronized(this) {
+          while(!waiting) {
+            Thread.yield();
+          }
+          notify();
+          waiting = false;
+        }
         s.close();
-      } catch(IOException e) {
+      } catch(Exception e) {
         e.printStackTrace();
       }
     }
 
+
     protected abstract void doService(Socket s) throws IOException;
+
+    public void waitForServiceToComplete() throws InterruptedException {
+      synchronized(this) {
+        waiting = true;
+        wait();
+      }
+    }
   }
 
   public static class ClosingSocketService extends TestSocketService {
@@ -75,9 +86,7 @@ public class SocketServerTest {
       // TODO - MDM - Possible Race Condition?  Have seen hanging test.
       server.start();
       new Socket("localhost", port);
-      synchronized(service) {
-        service.wait();
-      }
+      service.waitForServiceToComplete();
       server.stop();
 
       assertEquals(1, service.connections);
@@ -88,13 +97,10 @@ public class SocketServerTest {
       // TODO - MDM - Possible Race Condition?  Have seen hanging test.
       server.start();
       new Socket("localhost", port);
-      synchronized(service) {
-        service.wait();
-      }
+      service.waitForServiceToComplete();
+
       new Socket("localhost", port);
-      synchronized(service) {
-        service.wait();
-      }
+      service.waitForServiceToComplete();
       server.stop();
 
       assertEquals(2, service.connections);
@@ -133,9 +139,7 @@ public class SocketServerTest {
       Socket s = new Socket("localhost", port);
       OutputStream os = s.getOutputStream();
       os.write("hello\n".getBytes());
-      synchronized(readingService) {
-        readingService.wait();
-      }
+      readingService.waitForServiceToComplete();
       server.stop();
 
       assertEquals("hello", readingService.message);
@@ -176,9 +180,7 @@ public class SocketServerTest {
       Socket s = new Socket("localhost", port);
       OutputStream os = s.getOutputStream();
       os.write("echo\n".getBytes());
-      synchronized(echoService) {
-        echoService.wait();
-      }
+      echoService.waitForServiceToComplete();
       InputStream is = s.getInputStream();
       InputStreamReader isr = new InputStreamReader(is);
       BufferedReader br = new BufferedReader(isr);
