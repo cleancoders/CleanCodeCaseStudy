@@ -1,10 +1,8 @@
 package cleancoderscom.socketserver;
 
-import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.io.*;
 import java.net.Socket;
@@ -64,17 +62,26 @@ public class SocketServerTest {
     Socket s = new Socket("localhost", port);
     OutputStream os = s.getOutputStream();
     os.write("echo\n".getBytes());
-    InputStream is = s.getInputStream();
-    InputStreamReader isr = new InputStreamReader(is);
-    BufferedReader br = new BufferedReader(isr);
-    String response = br.readLine();
+    String response = new BufferedReader(new InputStreamReader(s.getInputStream())).readLine();
     assertEquals("echo", response);
   }
 
   @Test
-  public void multipleEchos() throws Exception
-  {
-    
+  public void multipleEchos() throws Exception {
+    server.start();
+    Thread.yield();
+
+    Socket s1 = new Socket("localhost", port);
+    Socket s2 = new Socket("localhost", port);
+
+    s1.getOutputStream().write("echo1\n".getBytes());
+    s2.getOutputStream().write("echo2\n".getBytes());
+
+    String response1 = new BufferedReader(new InputStreamReader(s1.getInputStream())).readLine();
+    String response2 = new BufferedReader(new InputStreamReader(s2.getInputStream())).readLine();
+
+    assertEquals("echo1", response1);
+    assertEquals("echo2", response2);
   }
 }
 
