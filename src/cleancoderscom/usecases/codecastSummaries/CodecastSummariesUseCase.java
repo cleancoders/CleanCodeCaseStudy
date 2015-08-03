@@ -13,32 +13,17 @@ import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.entities.License.LicenseType.VIEWING;
 
 public class CodecastSummariesUseCase {
-  public static SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy");
 
   public List<PresentableCodecastSummary> presentCodecasts(User loggedInUser) {
     ArrayList<PresentableCodecastSummary> presentableCodecasts = new ArrayList<PresentableCodecastSummary>();
     List<Codecast> allCodecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
 
     for (Codecast codecast : allCodecasts)
-      presentableCodecasts.add(formatCodecast(loggedInUser, codecast));
+      presentableCodecasts.add(CodecastSummariesPresenter.formatCodecast(loggedInUser, codecast));
 
     return presentableCodecasts;
   }
 
-  private PresentableCodecastSummary formatCodecast(User loggedInUser, Codecast codecast) {
-    PresentableCodecastSummary cc = new PresentableCodecastSummary();
-    formatSummaryFields(loggedInUser, codecast, cc);
-    return cc;
-  }
-
-  // TODO - Extract Presenter
-  public static void formatSummaryFields(User loggedInUser, Codecast codecast, PresentableCodecastSummary cc) {
-    cc.title = codecast.getTitle();
-    cc.publicationDate = dateFormat.format(codecast.getPublicationDate());
-    cc.isViewable = isLicensedFor(VIEWING, loggedInUser, codecast);
-    cc.isDownloadable = isLicensedFor(DOWNLOADING, loggedInUser, codecast);
-    cc.permalink = codecast.getPermalink();
-  }
 
   public static boolean isLicensedFor(License.LicenseType licenseType, User user, Codecast codecast) {
     List<License> licenses = Context.licenseGateway.findLicensesForUserAndCodecast(user, codecast);
@@ -50,3 +35,4 @@ public class CodecastSummariesUseCase {
   }
 
 }
+
