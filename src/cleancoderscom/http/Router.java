@@ -11,10 +11,13 @@ public class Router {
   }
 
   public String route(ParsedRequest request) {
-    System.out.println("request.path = " + request.path);
     String[] parts = request.path.split("/");
-    String controllerKey =  parts.length > 1 ? parts[1] : "";
+    String controllerKey = parts.length > 1 ? parts[1] : "";
     Controller controller = routes.get(controllerKey);
-    return controller == null ? null : controller.handle(request);
+    if(controller == null) {
+      return "HTTP/1.1 404 OK\n";
+    } else {
+      return controller.handle(request);
+    }
   }
 }

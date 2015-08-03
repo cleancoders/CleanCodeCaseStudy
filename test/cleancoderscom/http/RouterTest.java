@@ -51,4 +51,12 @@ public class RouterTest {
       return "";
     }
   }
+
+  @Test
+  public void Four04() throws Exception
+  {
+    String result = router.route(new ParsedRequest("GET", "/something-missing"));
+
+    assertEquals("HTTP/1.1 404 OK\n", result);
+  }
 }
