@@ -1,7 +1,6 @@
 package cleancoderscom.socketserver;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
-import org.junit.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +23,10 @@ public class SocketServerTest {
     public void serve(Socket s) {
       try {
         doService(s);
-        while(!waiting)
-          Thread.yield();
-
         synchronized(this) {
+          while(!waiting) {
+            Thread.yield();
+          }
           notify();
           waiting = false;
         }
