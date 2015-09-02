@@ -5,17 +5,13 @@ import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
-import static cleancoderscom.entities.License.LicenseType.VIEWING;
-
 public class CodecastSummariesUseCase {
 
-  public List<PresentableCodecastSummary> presentCodecasts(User loggedInUser) {
-    ArrayList<PresentableCodecastSummary> presentableCodecasts = new ArrayList<PresentableCodecastSummary>();
+  public List<CodecastSummaryViewModel> presentCodecasts(User loggedInUser) {
+    ArrayList<CodecastSummaryViewModel> presentableCodecasts = new ArrayList<CodecastSummaryViewModel>();
     List<Codecast> allCodecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
 
     for (Codecast codecast : allCodecasts)

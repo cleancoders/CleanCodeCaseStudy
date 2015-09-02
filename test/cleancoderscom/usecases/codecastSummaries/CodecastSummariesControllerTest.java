@@ -10,8 +10,10 @@ public class CodecastSummariesControllerTest {
   @Test
   public void testFrontPage() throws Exception
   {
-    List<PresentableCodecastSummary> summaries = new ArrayList<>();
+//    List<CodecastSummaryResponseModel> summaryResponseModels = new ArrayList<>();
 
+    CodecastSummaryInputBoundary codecastSummaryInputBoundary = new Cos
+    CodecastSummariesController controller = new CodecastSummariesController(codecastSummaryInputBoundary);
   }
 
 }

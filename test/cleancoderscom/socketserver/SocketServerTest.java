@@ -55,12 +55,10 @@ public class SocketServerTest {
     }
   }
 
-  //TODO: STILL GOT A FAILURE.  URG!!!
-
   @Test
   public void canEcho() throws Exception {
     server.start();
-    Thread.yield();
+    Thread.sleep(10);
     Socket s = new Socket("localhost", port);
     OutputStream os = s.getOutputStream();
     os.write("echo\n".getBytes());

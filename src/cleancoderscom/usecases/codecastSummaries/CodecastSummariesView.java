@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.List;
 
 public class CodecastSummariesView {
-  static String toHTML(List<PresentableCodecastSummary> presentableCodecasts) {
+  static String toHTML(List<CodecastSummaryViewModel> presentableCodecasts) {
 
     try {
       ViewTemplate frontPageTemplate = ViewTemplate.create("html/frontpage.html");
 
       StringBuilder codecastLines = new StringBuilder();
-      for(PresentableCodecastSummary presentableCodecast : presentableCodecasts) {
+      for(CodecastSummaryViewModel presentableCodecast : presentableCodecasts) {
 
         ViewTemplate codecastTemplate = ViewTemplate.create("html/codecast.html");
         codecastTemplate.replace("title", presentableCodecast.title);
