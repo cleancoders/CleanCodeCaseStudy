@@ -1,5 +1,7 @@
 package cleancoderscom.usecases.codecastSummaries;
 
+import cleancoderscom.entities.User;
+
 public interface CodecastSummaryInputBoundary {
-  void summarizeCodecasts();
+  void summarizeCodecasts(User loggedInUser);
 }

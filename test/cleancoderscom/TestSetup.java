@@ -13,6 +13,7 @@ import java.util.Date;
 import static cleancoderscom.entities.License.LicenseType.*;
 
 public class TestSetup {
+
   public static void setupContext() {
     Context.userGateway = new InMemoryUserGateway();
     Context.licenseGateway = new InMemoryLicenseGateway();
@@ -47,5 +48,7 @@ public class TestSetup {
 
     Context.licenseGateway.save(bobE1);
     Context.licenseGateway.save(bobE2);
+
+    Context.gateKeeper.setLoggedInUser(bob);
   }
 }

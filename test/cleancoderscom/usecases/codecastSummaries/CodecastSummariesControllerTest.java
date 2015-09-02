@@ -1,21 +1,18 @@
 package cleancoderscom.usecases.codecastSummaries;
 
+import cleancoderscom.Context;
 import cleancoderscom.TestSetup;
 import cleancoderscom.http.ParsedRequest;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class CodecastSummariesControllerTest {
 
   @Test
-  public void testFrontPage() throws Exception
+  public void testInputBoundaryInvocation() throws Exception
   {
-    TestSetup.setupContext();
+    TestSetup.setupSampleData();
 //    List<CodecastSummaryResponseModel> summaryResponseModels = new ArrayList<>();
 
     CodecastSummaryInputBoundarySpy codecastSummaryInputBoundary = new CodecastSummaryInputBoundarySpy();
@@ -25,7 +22,10 @@ public class CodecastSummariesControllerTest {
     controller.handle(request);
 
     assertTrue(codecastSummaryInputBoundary.summarizeCodecastsWasCalled);
-//    assertNotNull(codecastSummaryInputBoundary.requestModel);
+    String loggedInUser = Context.userGateway.findUserByName("Bob").getId();
+    assertEquals(loggedInUser, codecastSummaryInputBoundary.requestedUser.getId());
+    CodecastSummaryOutputBoundary outputBoundary = codecastSummaryInputBoundary.outputBoundary;
+    assertNotNull(outputBoundary);
   }
 
 }

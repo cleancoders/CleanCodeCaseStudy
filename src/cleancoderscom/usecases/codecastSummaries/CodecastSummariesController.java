@@ -1,5 +1,6 @@
 package cleancoderscom.usecases.codecastSummaries;
 
+import cleancoderscom.Context;
 import cleancoderscom.http.Controller;
 import cleancoderscom.http.ParsedRequest;
 
@@ -11,7 +12,7 @@ public class CodecastSummariesController implements Controller {
   }
 
   public String handle(ParsedRequest request) {
-    codecastSummaryInputBoundary.summarizeCodecasts();
+    codecastSummaryInputBoundary.summarizeCodecasts(Context.gateKeeper.getLoggedInUser());
 
 //    User bob = Context.userGateway.findUserByName("Bob");
 //    CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
