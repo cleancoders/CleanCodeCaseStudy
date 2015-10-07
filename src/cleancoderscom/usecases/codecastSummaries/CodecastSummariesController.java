@@ -1,19 +1,22 @@
 package cleancoderscom.usecases.codecastSummaries;
 
 import cleancoderscom.Context;
+import cleancoderscom.entities.User;
 import cleancoderscom.http.Controller;
 import cleancoderscom.http.ParsedRequest;
 
 public class CodecastSummariesController implements Controller {
-  private CodecastSummaryInputBoundary codecastSummaryInputBoundary;
+  private CodecastSummaryInputBoundary useCase;
+  private final CodecastSummaryOutputBoundary presenter;
 
-  public CodecastSummariesController(CodecastSummaryInputBoundary codecastSummaryInputBoundary) {
-    this.codecastSummaryInputBoundary = codecastSummaryInputBoundary;
+  public CodecastSummariesController(CodecastSummaryInputBoundary useCase, CodecastSummaryOutputBoundary presenter) {
+    this.useCase = useCase;
+    this.presenter = presenter;
   }
 
   public String handle(ParsedRequest request) {
-    codecastSummaryInputBoundary.summarizeCodecasts(Context.gateKeeper.getLoggedInUser());
-
+    final User user = Context.gateKeeper.getLoggedInUser();
+    useCase.summarizeCodecasts(user, presenter);
 //    User bob = Context.userGateway.findUserByName("Bob");
 //    CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
 //    CodecastSummariesView view = new CodecastSummariesView();
