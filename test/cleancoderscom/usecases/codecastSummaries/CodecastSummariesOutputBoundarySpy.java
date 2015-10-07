@@ -2,11 +2,11 @@ package cleancoderscom.usecases.codecastSummaries;
 
 public class CodecastSummariesOutputBoundarySpy implements CodecastSummariesOutputBoundary
 {
-  public CodecastSummariesResponseModel responseModel;
+  public CodecastSummariesViewModel viewModel;
 
   @Override
-  public CodecastSummariesResponseModel getResponseModel()
+  public CodecastSummariesViewModel getViewModel()
   {
-    return responseModel;
+    return viewModel;
   }
 }

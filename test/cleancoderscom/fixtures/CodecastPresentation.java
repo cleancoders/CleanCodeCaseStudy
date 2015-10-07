@@ -5,8 +5,8 @@ import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
 import cleancoderscom.TestSetup;
+import cleancoderscom.usecases.codecastSummaries.CodecastSummariesResponseModel;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class CodecastPresentation {
   }
 
   public int countOfCodecastsPresented() {
-    List<CodecastSummariesViewModel> presentations = useCase.presentCodecasts(Context.gateKeeper.getLoggedInUser());
+    List<CodecastSummariesResponseModel> presentations = useCase.presentCodecasts(Context.gateKeeper.getLoggedInUser());
     return presentations.size();
   }
 }

@@ -3,11 +3,11 @@ package cleancoderscom.usecases.codecastSummaries;
 public class CodecastSummariesViewSpy implements CodecastSummariesView
 {
   public boolean generateViewWasCalled = false;
-  public CodecastSummariesResponseModel responseModel;
+  public CodecastSummariesViewModel viewModel;
 
-  public String generateView(CodecastSummariesResponseModel responseModel)
+  public String generateView(CodecastSummariesViewModel viewModel)
   {
-    this.responseModel = responseModel;
+    this.viewModel = viewModel;
     generateViewWasCalled = true;
     return null;
   }

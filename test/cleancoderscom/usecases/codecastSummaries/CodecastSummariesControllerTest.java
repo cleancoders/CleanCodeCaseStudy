@@ -39,15 +39,15 @@ public class CodecastSummariesControllerTest {
   }
 
   @Test
-  public void controllerSendsTheResponseModelToTheView() throws Exception
+  public void controllerSendsTheViewModelToTheView() throws Exception
   {
-    presenterSpy.responseModel = new CodecastSummariesResponseModel();
+    presenterSpy.viewModel = new CodecastSummariesViewModel();
 
     ParsedRequest request = new ParsedRequest("GET", "blah");
     controller.handle(request);
 
     assertTrue(viewSpy.generateViewWasCalled);
-    assertSame(presenterSpy.responseModel, viewSpy.responseModel);
+    assertSame(presenterSpy.viewModel, viewSpy.viewModel);
   }
 
   private CodecastSummariesInputBoundarySpy getCodecastSummariesInputBoundarySpy()

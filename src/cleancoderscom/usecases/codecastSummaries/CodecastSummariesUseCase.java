@@ -8,10 +8,10 @@ import cleancoderscom.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CodecastSummariesUseCase {
+public class CodecastSummariesUseCase implements CodecastSummariesInputBoundary {
 
-  public List<CodecastSummariesViewModel> presentCodecasts(User loggedInUser) {
-    ArrayList<CodecastSummariesViewModel> presentableCodecasts = new ArrayList<CodecastSummariesViewModel>();
+  public List<CodecastSummariesResponseModel> presentCodecasts(User loggedInUser) {
+    ArrayList<CodecastSummariesResponseModel> presentableCodecasts = new ArrayList<CodecastSummariesResponseModel>();
     List<Codecast> allCodecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
 
     for (Codecast codecast : allCodecasts)
@@ -30,5 +30,10 @@ public class CodecastSummariesUseCase {
     return false;
   }
 
+  @Override
+  public void summarizeCodecasts(User loggedInUser, CodecastSummariesOutputBoundary presenter)
+  {
+
+  }
 }
 

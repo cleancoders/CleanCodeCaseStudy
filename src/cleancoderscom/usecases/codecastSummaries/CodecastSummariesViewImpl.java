@@ -7,13 +7,13 @@ import java.util.List;
 
 public class CodecastSummariesViewImpl implements CodecastSummariesView
 {
-  static String toHTML(List<CodecastSummariesViewModel> presentableCodecasts) {
+  static String toHTML(List<CodecastSummariesResponseModel> presentableCodecasts) {
 
     try {
       ViewTemplate frontPageTemplate = ViewTemplate.create("html/frontpage.html");
 
       StringBuilder codecastLines = new StringBuilder();
-      for(CodecastSummariesViewModel presentableCodecast : presentableCodecasts) {
+      for(CodecastSummariesResponseModel presentableCodecast : presentableCodecasts) {
 
         ViewTemplate codecastTemplate = ViewTemplate.create("html/codecast.html");
         codecastTemplate.replace("title", presentableCodecast.title);
@@ -37,7 +37,7 @@ public class CodecastSummariesViewImpl implements CodecastSummariesView
     }
   }
 
-  public String generateView(CodecastSummariesResponseModel responseModel)
+  public String generateView(CodecastSummariesViewModel viewModel)
   {
     return null;
   }

@@ -69,7 +69,7 @@ public class SocketServerTest {
   @Test
   public void multipleEchos() throws Exception {
     server.start();
-    Thread.yield();
+    Thread.sleep(10);
 
     Socket s1 = new Socket("localhost", port);
     Socket s2 = new Socket("localhost", port);

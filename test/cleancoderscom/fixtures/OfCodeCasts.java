@@ -1,8 +1,8 @@
 package cleancoderscom.fixtures;
 
 import cleancoderscom.Context;
+import cleancoderscom.usecases.codecastSummaries.CodecastSummariesResponseModel;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel;
 import cleancoderscom.entities.User;
 
 import java.util.ArrayList;
@@ -18,15 +18,15 @@ public class OfCodeCasts {
   public List<Object> query() {
     User loggedInUser = Context.gateKeeper.getLoggedInUser();
     CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
-    List<CodecastSummariesViewModel> presentableCodecasts = useCase.presentCodecasts(loggedInUser);
+    List<CodecastSummariesResponseModel> presentableCodecasts = useCase.presentCodecasts(loggedInUser);
     List<Object> queryResponse = new ArrayList<Object>();
-    for (CodecastSummariesViewModel pcc : presentableCodecasts)
+    for (CodecastSummariesResponseModel pcc : presentableCodecasts)
       queryResponse.add(makeRow(pcc));
     return queryResponse;
 
   }
 
-  private List<Object> makeRow(CodecastSummariesViewModel pc) {
+  private List<Object> makeRow(CodecastSummariesResponseModel pc) {
     return list(
       new Object[]{list("title", pc.title),
         list("publication date", pc.publicationDate),
