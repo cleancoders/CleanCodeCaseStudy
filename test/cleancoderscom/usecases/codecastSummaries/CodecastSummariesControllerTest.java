@@ -3,21 +3,32 @@ package cleancoderscom.usecases.codecastSummaries;
 import cleancoderscom.Context;
 import cleancoderscom.TestSetup;
 import cleancoderscom.http.ParsedRequest;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class CodecastSummariesControllerTest {
 
-  @Test
-  public void testInputBoundaryInvocation() throws Exception
+  public CodecastSummariesInputBoundarySpy useCaseSpy;
+  public CodecastSummariesOutputBoundarySpy presenterSpy;
+  public CodecastSummariesViewSpy viewSpy;
+  public CodecastSummariesController controller;
+
+  @Before
+  public void setUp()
   {
     TestSetup.setupSampleData();
 
-    CodecastSummaryInputBoundarySpy useCaseSpy = new CodecastSummaryInputBoundarySpy();
-    CodecastSummaryOutputBoundarySpy presenterSpy = new CodecastSummaryOutputBoundarySpy();
-    CodecastSummariesController controller = new CodecastSummariesController(useCaseSpy, presenterSpy);
+    useCaseSpy = getCodecastSummariesInputBoundarySpy();
+    presenterSpy = new CodecastSummariesOutputBoundarySpy();
+    viewSpy = new CodecastSummariesViewSpy();
+    controller = new CodecastSummariesController(useCaseSpy, presenterSpy, viewSpy);
+  }
 
+  @Test
+  public void testInputBoundaryInvocation() throws Exception
+  {
     ParsedRequest request = new ParsedRequest("GET", "blah");
     controller.handle(request);
 
@@ -30,19 +41,18 @@ public class CodecastSummariesControllerTest {
   @Test
   public void controllerSendsTheResponseModelToTheView() throws Exception
   {
-    TestSetup.setupSampleData();
-
-    CodecastSummaryInputBoundarySpy useCaseSpy = new CodecastSummaryInputBoundarySpy();
-    CodecastSummaryOutputBoundarySpy presenterSpy = new CodecastSummaryOutputBoundarySpy();
-    CodecastSummaryViewSpy viewSpy = new CodecastSummaryViewSpy();
-    CodecastSummariesController controller = new CodecastSummariesController(useCaseSpy, presenterSpy, viewSpy);
-    presenterSpy.responseModel = new CodecastSummaryResponseModel();
+    presenterSpy.responseModel = new CodecastSummariesResponseModel();
 
     ParsedRequest request = new ParsedRequest("GET", "blah");
     controller.handle(request);
 
     assertTrue(viewSpy.generateViewWasCalled);
     assertSame(presenterSpy.responseModel, viewSpy.responseModel);
+  }
+
+  private CodecastSummariesInputBoundarySpy getCodecastSummariesInputBoundarySpy()
+  {
+    return new CodecastSummariesInputBoundarySpy();
   }
 
 }

@@ -12,7 +12,7 @@ public class CodecastSummariesPresenter {
 
   public static SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy");
 
-  public static void formatSummaryFields(User loggedInUser, Codecast codecast, CodecastSummaryViewModel cc) {
+  public static void formatSummaryFields(User loggedInUser, Codecast codecast, CodecastSummariesViewModel cc) {
     cc.title = codecast.getTitle();
     cc.publicationDate = dateFormat.format(codecast.getPublicationDate());
     cc.isViewable = CodecastSummariesUseCase.isLicensedFor(VIEWING, loggedInUser, codecast);
@@ -21,8 +21,8 @@ public class CodecastSummariesPresenter {
   }
 
 
-  public static CodecastSummaryViewModel formatCodecast(User loggedInUser, Codecast codecast) {
-    CodecastSummaryViewModel cc = new CodecastSummaryViewModel();
+  public static CodecastSummariesViewModel formatCodecast(User loggedInUser, Codecast codecast) {
+    CodecastSummariesViewModel cc = new CodecastSummariesViewModel();
     CodecastSummariesPresenter.formatSummaryFields(loggedInUser, codecast, cc);
     return cc;
   }

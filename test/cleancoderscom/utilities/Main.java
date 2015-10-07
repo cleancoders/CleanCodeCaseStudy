@@ -16,7 +16,7 @@ public class Main {
 
   public static void main(String[] args) throws Exception {
     Router router = new Router();
-    router.addPath("", new CodecastSummariesController(null, null));
+    router.addPath("", new CodecastSummariesController(null, null, null));
     // TODO - Add this Controller
 //    router.addPath("episode", new CodecastDetailsController());
 

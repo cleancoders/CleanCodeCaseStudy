@@ -1,7 +1,8 @@
 package cleancoderscom.usecases.codecastDetails;
 
-import cleancoderscom.usecases.codecastSummaries.CodecastSummaryViewModel;
+import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel;
 
-public class PresentableCodecastDetails extends CodecastSummaryViewModel {
+public class PresentableCodecastDetails extends CodecastSummariesViewModel
+{
   public boolean wasFound;
 }

@@ -10,8 +10,8 @@ import java.util.List;
 
 public class CodecastSummariesUseCase {
 
-  public List<CodecastSummaryViewModel> presentCodecasts(User loggedInUser) {
-    ArrayList<CodecastSummaryViewModel> presentableCodecasts = new ArrayList<CodecastSummaryViewModel>();
+  public List<CodecastSummariesViewModel> presentCodecasts(User loggedInUser) {
+    ArrayList<CodecastSummariesViewModel> presentableCodecasts = new ArrayList<CodecastSummariesViewModel>();
     List<Codecast> allCodecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
 
     for (Codecast codecast : allCodecasts)
