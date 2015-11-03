@@ -65,7 +65,7 @@ public class CodecastPresentation {
   }
 
   public int countOfCodecastsPresented() {
-    List<CodecastSummariesResponseModel> presentations = useCase.presentCodecasts(Context.gateKeeper.getLoggedInUser());
-    return presentations.size();
+//    List<CodecastSummariesResponseModel> presentations = useCase.presentCodecasts(Context.gateKeeper.getLoggedInUser());
+    return 0; //presentations.size();
   }
 }

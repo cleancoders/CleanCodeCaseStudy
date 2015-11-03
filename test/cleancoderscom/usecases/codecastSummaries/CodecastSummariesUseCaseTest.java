@@ -22,18 +22,20 @@ import static org.junit.Assert.*;
 public class CodecastSummariesUseCaseTest {
   private User user;
   private CodecastSummariesUseCase useCase;
+  public CodecastSummariesOutputBoundarySpy presenterSpy;
 
   @Before
   public void setUp() {
     TestSetup.setupContext();
     user = Context.userGateway.save(new User("User"));
     useCase = new CodecastSummariesUseCase();
+    presenterSpy = new CodecastSummariesOutputBoundarySpy();
+
   }
 
   @Test
   public void useCaseWiring() throws Exception
   {
-    final CodecastSummariesOutputBoundarySpy presenterSpy = new CodecastSummariesOutputBoundarySpy();
     useCase.summarizeCodecasts(user, presenterSpy);
     assertNotNull(presenterSpy.responseModel);
   }
@@ -41,9 +43,9 @@ public class CodecastSummariesUseCaseTest {
   public class GivenNoCodecasts {
     @Test
     public void noneArePresented() throws Exception {
-      List<CodecastSummariesResponseModel> presentableCodecasts = useCase.presentCodecasts(user);
+      useCase.summarizeCodecasts(user, presenterSpy);
 
-      assertEquals(0, presentableCodecasts.size());
+      assertEquals(0, presenterSpy.responseModel.getCodecastSummaries().size());
     }
   }
 
@@ -62,7 +64,7 @@ public class CodecastSummariesUseCaseTest {
       codecast.setPublicationDate(now);
       codecast.setPermalink("permalink");
       Context.codecastGateway.save(codecast);
-      final CodecastSummariesOutputBoundarySpy presenterSpy = new CodecastSummariesOutputBoundarySpy();
+      presenterSpy = new CodecastSummariesOutputBoundarySpy();
 
       useCase.summarizeCodecasts(user, presenterSpy);
 
@@ -81,9 +83,9 @@ public class CodecastSummariesUseCaseTest {
 
       @Test
       public void presentedCodecastShowsNotViewable() throws Exception {
-        List<CodecastSummariesResponseModel> presentableCodecasts = useCase.presentCodecasts(user);
-        CodecastSummariesResponseModel presentableCodecast = presentableCodecasts.get(0);
-        assertFalse(presentableCodecast.isViewable);
+        useCase.summarizeCodecasts(user, presenterSpy);
+        CodecastSummary summary = presenterSpy.responseModel.getCodecastSummaries().get(0);
+        assertFalse(summary.isViewable);
       }
     }
 
@@ -111,9 +113,9 @@ public class CodecastSummariesUseCaseTest {
       @Test
       public void presentedCodecastIsViewable() throws Exception {
         Context.licenseGateway.save(new License(VIEWING, user, codecast));
-        List<CodecastSummariesResponseModel> presentableCodecasts = useCase.presentCodecasts(user);
-        CodecastSummariesResponseModel presentableCodecast = presentableCodecasts.get(0);
-        assertTrue(presentableCodecast.isViewable);
+        useCase.summarizeCodecasts(user, presenterSpy);
+        CodecastSummary summary = presenterSpy.responseModel.getCodecastSummaries().get(0);
+        assertTrue(summary.isViewable);
       }
     }
 
@@ -128,10 +130,10 @@ public class CodecastSummariesUseCaseTest {
 
       @Test
       public void presentedCodecastIsDownloadable() throws Exception {
-        List<CodecastSummariesResponseModel> presentableCodecasts = useCase.presentCodecasts(user);
-        CodecastSummariesResponseModel presentableCodecast = presentableCodecasts.get(0);
-        assertTrue(presentableCodecast.isDownloadable);
-        assertFalse(presentableCodecast.isViewable);
+        useCase.summarizeCodecasts(user, presenterSpy);
+        CodecastSummary summary = presenterSpy.responseModel.getCodecastSummaries().get(0);
+        assertTrue(summary.isDownloadable);
+        assertFalse(summary.isViewable);
       }
     }
   }

@@ -20,7 +20,6 @@ public class CodecastSummariesPresenter {
     cc.permalink = codecast.getPermalink();
   }
 
-
   public static CodecastSummariesResponseModel formatCodecast(User loggedInUser, Codecast codecast) {
     CodecastSummariesResponseModel cc = new CodecastSummariesResponseModel();
     CodecastSummariesPresenter.formatSummaryFields(loggedInUser, codecast, cc);

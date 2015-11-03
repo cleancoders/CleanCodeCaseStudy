@@ -1,9 +1,11 @@
 package cleancoderscom.fixtures;
 
 import cleancoderscom.Context;
+import cleancoderscom.usecases.codecastSummaries.CodecastSummariesOutputBoundarySpy;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesResponseModel;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
 import cleancoderscom.entities.User;
+import cleancoderscom.usecases.codecastSummaries.CodecastSummary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,23 +20,23 @@ public class OfCodeCasts {
   public List<Object> query() {
     User loggedInUser = Context.gateKeeper.getLoggedInUser();
     CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
-    List<CodecastSummariesResponseModel> presentableCodecasts = useCase.presentCodecasts(loggedInUser);
+    final CodecastSummariesOutputBoundarySpy presenter = new CodecastSummariesOutputBoundarySpy();
+    useCase.summarizeCodecasts(loggedInUser, presenter);
     List<Object> queryResponse = new ArrayList<Object>();
-    for (CodecastSummariesResponseModel pcc : presentableCodecasts)
-      queryResponse.add(makeRow(pcc));
+    for (CodecastSummary summary : presenter.responseModel.getCodecastSummaries())
+      queryResponse.add(makeRow(summary));
     return queryResponse;
 
   }
 
-  private List<Object> makeRow(CodecastSummariesResponseModel pc) {
+  private List<Object> makeRow(CodecastSummary summary) {
     return list(
-      new Object[]{list("title", pc.title),
-        list("publication date", pc.publicationDate),
-        list("picture", pc.title),
-        list("description", pc.title),
-        list("viewable", pc.isViewable ? "+" : "-"),
-        list("downloadable", pc.isDownloadable ? "+" : "-")}
-    );
+        list("title", summary.title),
+//        list("publication date", summary.publicationDate),
+        list("picture", summary.title),
+        list("description", summary.title),
+        list("viewable", summary.isViewable ? "+" : "-"),
+        list("downloadable", summary.isDownloadable ? "+" : "-"));
   }
 
 }
