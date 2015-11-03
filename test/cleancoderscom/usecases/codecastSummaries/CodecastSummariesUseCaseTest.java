@@ -35,10 +35,7 @@ public class CodecastSummariesUseCaseTest {
   {
     final CodecastSummariesOutputBoundarySpy presenterSpy = new CodecastSummariesOutputBoundarySpy();
     useCase.summarizeCodecasts(user, presenterSpy);
-//    usercase make responseModel
-//    send responseModel to presenter
-    // TODO
-    // assert something about responseModel in the presenter
+    assertNotNull(presenterSpy.responseModel);
   }
 
   public class GivenNoCodecasts {
@@ -65,14 +62,15 @@ public class CodecastSummariesUseCaseTest {
       codecast.setPublicationDate(now);
       codecast.setPermalink("permalink");
       Context.codecastGateway.save(codecast);
+      final CodecastSummariesOutputBoundarySpy presenterSpy = new CodecastSummariesOutputBoundarySpy();
 
-      List<CodecastSummariesResponseModel> presentableCodecasts = useCase.presentCodecasts(user);
+      useCase.summarizeCodecasts(user, presenterSpy);
 
-      assertEquals(1, presentableCodecasts.size());
-      CodecastSummariesResponseModel presentableCodecast = presentableCodecasts.get(0);
-      assertEquals("Some Title", presentableCodecast.title);
-      assertEquals("5/19/2014", presentableCodecast.publicationDate);
-      assertEquals("permalink", presentableCodecast.permalink);
+      assertEquals(1, presenterSpy.responseModel.getCodecastSummaries().size());
+      CodecastSummary codecastSummary = presenterSpy.responseModel.getCodecastSummaries().get(0);
+      assertEquals("Some Title", codecastSummary.title);
+      assertEquals(now, codecastSummary.publicationDate);
+      assertEquals("permalink", codecastSummary.permalink);
     }
 
     public class GivenNoLicenses {
