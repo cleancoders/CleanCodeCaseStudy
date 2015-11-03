@@ -1,11 +1,9 @@
 package cleancoderscom.fixtures;
 
 import cleancoderscom.Context;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesOutputBoundarySpy;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesResponseModel;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
+import cleancoderscom.usecases.codecastSummaries.*;
 import cleancoderscom.entities.User;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummary;
+import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel.ViewableCodecastSummary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,19 +18,19 @@ public class OfCodeCasts {
   public List<Object> query() {
     User loggedInUser = Context.gateKeeper.getLoggedInUser();
     CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
-    final CodecastSummariesOutputBoundarySpy presenter = new CodecastSummariesOutputBoundarySpy();
+    CodecastSummariesPresenter presenter = new CodecastSummariesPresenter();
     useCase.summarizeCodecasts(loggedInUser, presenter);
     List<Object> queryResponse = new ArrayList<Object>();
-    for (CodecastSummary summary : presenter.responseModel.getCodecastSummaries())
+    for (ViewableCodecastSummary summary : presenter.getViewModel().getViewableCodecasts())
       queryResponse.add(makeRow(summary));
     return queryResponse;
 
   }
 
-  private List<Object> makeRow(CodecastSummary summary) {
+  private List<Object> makeRow(ViewableCodecastSummary summary) {
     return list(
         list("title", summary.title),
-//        list("publication date", summary.publicationDate),
+        list("publication date", summary.publicationDate),
         list("picture", summary.title),
         list("description", summary.title),
         list("viewable", summary.isViewable ? "+" : "-"),

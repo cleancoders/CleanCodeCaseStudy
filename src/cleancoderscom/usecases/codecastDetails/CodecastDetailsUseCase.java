@@ -16,7 +16,7 @@ public class CodecastDetailsUseCase {
     }
     else {
       details.wasFound = true;
-      CodecastSummariesPresenter.formatSummaryFields(loggedInUser, codecast, details);
+//      CodecastSummariesPresenter.formatSummaryFields(loggedInUser, codecast, details);
       return details;
     }
   }

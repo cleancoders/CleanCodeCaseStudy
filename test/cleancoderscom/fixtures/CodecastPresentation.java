@@ -14,6 +14,7 @@ import java.util.List;
 import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.entities.License.LicenseType.VIEWING;
 
+// TODO: 11/3/15 Delete Me? 
 public class CodecastPresentation {
   private CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
 
