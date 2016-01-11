@@ -21,14 +21,6 @@ public class SocketServer {
     executor = Executors.newFixedThreadPool(4);
   }
 
-  public int getPort() {
-    return port;
-  }
-
-  public SocketService getService() {
-    return service;
-  }
-
   public void start() throws Exception {
     Runnable connectionHandler = new Runnable() {
       public void run() {
@@ -51,10 +43,6 @@ public class SocketServer {
     executor.execute(connectionHandler);
 
     running = true;
-  }
-
-  public boolean isRunning() {
-    return running;
   }
 
   public void stop() throws Exception {

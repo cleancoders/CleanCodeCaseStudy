@@ -5,8 +5,10 @@ import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
 import cleancoderscom.TestSetup;
+import cleancoderscom.usecases.codecastSummaries.CodecastSummariesPresenter;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesResponseModel;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
+import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +16,19 @@ import java.util.List;
 import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.entities.License.LicenseType.VIEWING;
 
-// TODO: 11/3/15 Delete Me? 
 public class CodecastPresentation {
-  private CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
+//  private CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
 
   public CodecastPresentation() {
     TestSetup.setupContext();
+  }
+
+  public static List<CodecastSummariesViewModel.ViewableCodecastSummary> loadViewableCodecasts() {
+    User loggedInUser = Context.gateKeeper.getLoggedInUser();
+    CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
+    CodecastSummariesPresenter presenter = new CodecastSummariesPresenter();
+    useCase.summarizeCodecasts(loggedInUser, presenter);
+    return presenter.getViewModel().getViewableCodecasts();
   }
 
   public boolean addUser(String username) {
@@ -37,20 +46,20 @@ public class CodecastPresentation {
     }
   }
 
-  public boolean createLicenseForViewing(String username, String codecastTitle) {
+  private boolean createLicenseForType(String username, String codecastTitle, License.LicenseType type) {
     User user = Context.userGateway.findUserByName(username);
     Codecast codecast = Context.codecastGateway.findCodecastByTitle(codecastTitle);
-    License license = new License(VIEWING, user, codecast);
+    License license = new License(type, user, codecast);
     Context.licenseGateway.save(license);
-    return useCase.isLicensedFor(VIEWING, user, codecast);
+    return CodecastSummariesUseCase.isLicensedFor(type, user, codecast);
+  }
+
+  public boolean createLicenseForViewing(String username, String codecastTitle) {
+    return createLicenseForType(username, codecastTitle, VIEWING);
   }
 
   public boolean createLicenseForDownloading(String username, String codecastTitle) {
-    User user = Context.userGateway.findUserByName(username);
-    Codecast codecast = Context.codecastGateway.findCodecastByTitle(codecastTitle);
-    License license = new License(DOWNLOADING, user, codecast);
-    Context.licenseGateway.save(license);
-    return useCase.isLicensedFor(DOWNLOADING, user, codecast);
+    return createLicenseForType(username, codecastTitle, DOWNLOADING);
   }
 
   public String presentationUser() {
@@ -66,7 +75,7 @@ public class CodecastPresentation {
   }
 
   public int countOfCodecastsPresented() {
-//    List<CodecastSummariesResponseModel> presentations = useCase.presentCodecasts(Context.gateKeeper.getLoggedInUser());
-    return 0; //presentations.size();
+    return loadViewableCodecasts().size();
+
   }
 }
