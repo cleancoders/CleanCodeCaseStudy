@@ -21,14 +21,6 @@ public class CodecastSummariesController implements Controller {
   public String handle(ParsedRequest request) {
     final User user = Context.gateKeeper.getLoggedInUser();
     useCase.summarizeCodecasts(user, presenter);
-    view.generateView(presenter.getViewModel());
-//    User bob = Context.userGateway.findUserByName("Bob");
-//    CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
-//    CodecastSummariesView view = new CodecastSummariesView();
-//    final String html = view.toHTML(useCase.presentCodecasts(bob));
-//    return Controller.makeResponse(html);
-    return null;
+    return view.generateView(presenter.getViewModel());
   }
-
-
 }

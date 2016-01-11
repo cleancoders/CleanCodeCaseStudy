@@ -6,10 +6,8 @@ import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
 import cleancoderscom.TestSetup;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesPresenter;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesResponseModel;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,6 @@ import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.entities.License.LicenseType.VIEWING;
 
 public class CodecastPresentation {
-//  private CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
 
   public CodecastPresentation() {
     TestSetup.setupContext();
@@ -76,6 +73,5 @@ public class CodecastPresentation {
 
   public int countOfCodecastsPresented() {
     return loadViewableCodecasts().size();
-
   }
 }

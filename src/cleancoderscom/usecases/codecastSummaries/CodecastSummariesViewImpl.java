@@ -7,18 +7,18 @@ import java.util.List;
 
 public class CodecastSummariesViewImpl implements CodecastSummariesView
 {
-  static String toHTML(List<CodecastSummariesResponseModel> presentableCodecasts) {
+  static String toHTML(List<CodecastSummariesViewModel.ViewableCodecastSummary> presentableCodecasts) {
 
     try {
       ViewTemplate frontPageTemplate = ViewTemplate.create("html/frontpage.html");
 
       StringBuilder codecastLines = new StringBuilder();
-      for(CodecastSummariesResponseModel presentableCodecast : presentableCodecasts) {
+      for(CodecastSummariesViewModel.ViewableCodecastSummary viewableCodecastSummary : presentableCodecasts) {
 
         ViewTemplate codecastTemplate = ViewTemplate.create("html/codecast.html");
-        codecastTemplate.replace("title", presentableCodecast.title);
-        codecastTemplate.replace("publicationDate", presentableCodecast.publicationDate);
-        codecastTemplate.replace("permalink", presentableCodecast.permalink);
+        codecastTemplate.replace("title", viewableCodecastSummary.title);
+        codecastTemplate.replace("publicationDate", viewableCodecastSummary.publicationDate);
+        codecastTemplate.replace("permalink", viewableCodecastSummary.permalink);
 
         //staged
         codecastTemplate.replace("thumbnail", "https://d26o5k45lnmm4v.cloudfront.net/YmluYXJ5OjIxNzA1Nw");
@@ -39,6 +39,6 @@ public class CodecastSummariesViewImpl implements CodecastSummariesView
 
   public String generateView(CodecastSummariesViewModel viewModel)
   {
-    return null;
+    return toHTML(viewModel.getViewableCodecasts());
   }
 }

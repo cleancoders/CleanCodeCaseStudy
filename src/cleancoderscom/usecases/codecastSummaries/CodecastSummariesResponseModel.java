@@ -6,11 +6,6 @@ import java.util.List;
 public class CodecastSummariesResponseModel
 {
   private List<CodecastSummary> codecastSummaries;
-  public boolean isViewable;
-  public String title;
-  public String publicationDate;
-  public boolean isDownloadable;
-  public String permalink;
 
   public CodecastSummariesResponseModel() {
     codecastSummaries = new ArrayList<>();

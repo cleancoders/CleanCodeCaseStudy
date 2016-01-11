@@ -15,16 +15,19 @@ public class CodecastDetails {
   }
 
   public boolean codecastDetailsOfferPurchaseOf(String licenseType) {
-    return
-      (licenseType.equalsIgnoreCase("viewing") && !details.isViewable) ||
-      (licenseType.equalsIgnoreCase("download") && !details.isDownloadable);
+//    return
+//      (licenseType.equalsIgnoreCase("viewing") && !details.isViewable) ||
+//      (licenseType.equalsIgnoreCase("download") && !details.isDownloadable);
+    return false;
   }
 
   public String codecastDetailsTitle() {
-    return details.title;
+//    return details.title;
+    return "tilt";
   }
 
   public String codecastDetailsDate() {
-    return details.publicationDate;
+//    return details.publicationDate;
+    return "tilt";
   }
 }
