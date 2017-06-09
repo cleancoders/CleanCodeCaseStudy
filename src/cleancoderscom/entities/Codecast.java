@@ -1,7 +1,5 @@
 package cleancoderscom.entities;
 
-import cleancoderscom.entities.Entity;
-
 import java.util.Date;
 
 public class Codecast extends Entity {

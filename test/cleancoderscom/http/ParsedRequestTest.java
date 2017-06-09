@@ -4,39 +4,33 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class RequestParserTest {
+public class ParsedRequestTest {
 
   @Test
   public void emptyRequest() throws Exception {
-    RequestParser parser = new RequestParser();
-    ParsedRequest r = parser.parse("");
+    ParsedRequest r = ParsedRequest.fromRequestString("");
     assertEquals("", r.method);
     assertEquals("", r.path);
   }
 
   @Test
   public void nullRequest() throws Exception {
-    RequestParser parser = new RequestParser();
-    ParsedRequest r = parser.parse(null);
+    ParsedRequest r = ParsedRequest.fromRequestString(null);
     assertEquals("", r.method);
     assertEquals("", r.path);
   }
 
   @Test
   public void requestNonEmptyRequest() throws Exception {
-    RequestParser parser = new RequestParser();
-    ParsedRequest r = parser.parse("GET /foo/bar HTTP/1.1");
+    ParsedRequest r = ParsedRequest.fromRequestString("GET /foo/bar HTTP/1.1");
     assertEquals("GET", r.method);
     assertEquals("/foo/bar", r.path);
   }
 
   @Test
   public void partialRequest() throws Exception {
-    RequestParser parser = new RequestParser();
-    ParsedRequest r = parser.parse("GET");
+    ParsedRequest r = ParsedRequest.fromRequestString("GET");
     assertEquals("GET", r.method);
     assertEquals("", r.path);
   }
-
-
 }

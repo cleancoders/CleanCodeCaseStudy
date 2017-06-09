@@ -3,8 +3,7 @@ package cleancoderscom.usecases.codecastSummaries;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CodecastSummariesResponseModel
-{
+public class CodecastSummariesResponseModel {
   private List<CodecastSummary> codecastSummaries;
 
   public CodecastSummariesResponseModel() {

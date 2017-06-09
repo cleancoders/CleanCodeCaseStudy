@@ -5,8 +5,8 @@ import static cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewMod
 
 public class CodecastSummariesPresenter implements CodecastSummariesOutputBoundary {
 
-  public static SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy");
-  public CodecastSummariesViewModel viewModel;
+  private final SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy");
+  private CodecastSummariesViewModel viewModel;
 
   @Override
   public CodecastSummariesViewModel getViewModel() {
@@ -16,9 +16,9 @@ public class CodecastSummariesPresenter implements CodecastSummariesOutputBounda
   @Override
   public void present(CodecastSummariesResponseModel responseModel) {
     viewModel = new CodecastSummariesViewModel();
-    for(CodecastSummary codecastSummary : responseModel.getCodecastSummaries()) {
-      viewModel.addModel(makeViewable(codecastSummary));
-    }
+    responseModel.getCodecastSummaries().stream()
+        .map(this::makeViewable)
+        .forEach(viewable -> viewModel.addModel(viewable));
   }
 
   private ViewableCodecastSummary makeViewable(CodecastSummary codecastSummary) {

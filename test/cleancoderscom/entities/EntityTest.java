@@ -27,7 +27,7 @@ public class EntityTest {
   }
 
   @Test
-  public void EntitysWithTheSameIdAreTheSame() throws Exception {
+  public void entitysWithTheSameIdAreTheSame() throws Exception {
     Entity e1 = new Entity();
     Entity e2 = new Entity();
     e1.setId("e1ID");
@@ -37,7 +37,7 @@ public class EntityTest {
   }
 
   @Test
-  public void EntitysWithNullIdsAreNeverSame() throws Exception {
+  public void entitysWithNullIdsAreNeverSame() throws Exception {
     Entity e1 = new Entity();
     Entity e2 = new Entity();
 

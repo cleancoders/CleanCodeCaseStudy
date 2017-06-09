@@ -2,29 +2,28 @@ package cleancoderscom.doubles;
 
 import cleancoderscom.entities.Entity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class GatewayUtilities<T extends Entity> {
   private HashMap<String, T> entities;
 
   public GatewayUtilities() {
-    this.entities = new HashMap<String, T>();
+    this.entities = new HashMap<>();
   }
 
   public List<T> getEntities() {
-    List<T> clonedEntities = new ArrayList<T>();
-    for (T entity : entities.values())
-      addCloneToList(entity, clonedEntities);
-    return clonedEntities;
+    return entities.values().stream()
+      .map(this::clone)
+      .collect(Collectors.toList());
   }
 
   @SuppressWarnings("unchecked")
-  private void addCloneToList(T entity, List<T> newEntities) {
+  private T clone(T entity) {
     try {
-      newEntities.add((T) entity.clone());
+      return (T) entity.clone();
     } catch (CloneNotSupportedException e) {
       throw new UnCloneableEntity();
     }

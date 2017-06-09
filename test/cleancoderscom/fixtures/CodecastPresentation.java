@@ -4,7 +4,6 @@ import cleancoderscom.*;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
-import cleancoderscom.TestSetup;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesPresenter;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel;
@@ -65,7 +64,7 @@ public class CodecastPresentation {
 
   public boolean clearCodecasts() {
     List<Codecast> codecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
-    for (Codecast codecast : new ArrayList<Codecast>(codecasts)) {
+    for (Codecast codecast : new ArrayList<>(codecasts)) {
       Context.codecastGateway.delete(codecast);
     }
     return Context.codecastGateway.findAllCodecastsSortedChronologically().size() == 0;

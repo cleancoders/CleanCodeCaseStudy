@@ -6,14 +6,16 @@ import cleancoderscom.entities.User;
 import cleancoderscom.gateways.LicenseGateway;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryLicenseGateway extends GatewayUtilities<License> implements LicenseGateway {
   public List<License> findLicensesForUserAndCodecast(User user, Codecast codecast) {
-    List<License> results = new ArrayList<License>();
-    for (License license : getEntities()) {
-      if (license.getUser().isSame(user) && license.getCodecast().isSame(codecast))
-        results.add(license);
-    }
-    return results;
+    return getEntities().stream()
+        .filter(license -> isSameUserAndCodecast(user, codecast, license))
+        .collect(Collectors.toList());
+  }
+
+  private boolean isSameUserAndCodecast(User user, Codecast codecast, License license) {
+    return license.getUser().isSame(user) && license.getCodecast().isSame(codecast);
   }
 }

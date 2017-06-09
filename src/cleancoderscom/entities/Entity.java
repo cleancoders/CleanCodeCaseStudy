@@ -17,6 +17,7 @@ public class Entity implements Cloneable {
     return id;
   }
 
+  @Override
   public Object clone() throws CloneNotSupportedException {
     return super.clone();
   }

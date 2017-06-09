@@ -53,7 +53,7 @@ public class RouterTest {
   }
 
   @Test
-  public void Four04() throws Exception
+  public void four04() throws Exception
   {
     String result = router.route(new ParsedRequest("GET", "/something-missing"));
 

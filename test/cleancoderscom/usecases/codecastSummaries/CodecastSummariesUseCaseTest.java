@@ -1,18 +1,16 @@
 package cleancoderscom.usecases.codecastSummaries;
 
-import cleancoderscom.*;
+import cleancoderscom.Context;
+import cleancoderscom.TestSetup;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
-import cleancoderscom.TestSetup;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.entities.License.LicenseType.VIEWING;
@@ -22,7 +20,7 @@ import static org.junit.Assert.*;
 public class CodecastSummariesUseCaseTest {
   private User user;
   private CodecastSummariesUseCase useCase;
-  public CodecastSummariesOutputBoundarySpy presenterSpy;
+  private CodecastSummariesOutputBoundarySpy presenterSpy;
 
   @Before
   public void setUp() {
@@ -78,7 +76,7 @@ public class CodecastSummariesUseCaseTest {
     public class GivenNoLicenses {
       @Test
       public void userCannotViewCodecast() throws Exception {
-        assertFalse(useCase.isLicensedFor(VIEWING, user, codecast));
+        assertFalse(CodecastSummariesUseCase.isLicensedFor(VIEWING, user, codecast));
       }
 
       @Test
@@ -100,14 +98,14 @@ public class CodecastSummariesUseCaseTest {
 
       @Test
       public void userCanViewCodecast() throws Exception {
-        assertTrue(useCase.isLicensedFor(VIEWING, user, codecast));
+        assertTrue(CodecastSummariesUseCase.isLicensedFor(VIEWING, user, codecast));
       }
 
       @Test
       public void unlicensedUserCannotViewOtherUsersCodecast() throws Exception {
         User otherUser = new User("otherUser");
         Context.userGateway.save(otherUser);
-        assertFalse(useCase.isLicensedFor(VIEWING, otherUser, codecast));
+        assertFalse(CodecastSummariesUseCase.isLicensedFor(VIEWING, otherUser, codecast));
       }
 
       @Test

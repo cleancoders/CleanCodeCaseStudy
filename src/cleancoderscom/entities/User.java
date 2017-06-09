@@ -1,7 +1,5 @@
 package cleancoderscom.entities;
 
-import cleancoderscom.entities.Entity;
-
 public class User extends Entity {
   private String userName;
 

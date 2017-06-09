@@ -9,13 +9,7 @@ public class CodecastDetailsUseCase {
     PresentableCodecastDetails details = new PresentableCodecastDetails();
 
     Codecast codecast = Context.codecastGateway.findCodecastByPermalink(permalink);
-    if (codecast == null) {
-      details.wasFound = false;
-      return details;
-    }
-    else {
-      details.wasFound = true;
-      return details;
-    }
+    details.wasFound = codecast != null;
+    return details;
   }
 }

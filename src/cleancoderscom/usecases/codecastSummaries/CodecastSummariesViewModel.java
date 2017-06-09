@@ -6,7 +6,7 @@ import java.util.List;
 public class CodecastSummariesViewModel
 {
 
-  public ArrayList<ViewableCodecastSummary> viewableCodecastSummaries = new ArrayList<>();
+  public List<ViewableCodecastSummary> viewableCodecastSummaries = new ArrayList<>();
 
   public void addModel(ViewableCodecastSummary viewableCodecastSummary) {
     viewableCodecastSummaries.add(viewableCodecastSummary);

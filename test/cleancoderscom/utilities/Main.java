@@ -1,7 +1,6 @@
 package cleancoderscom.utilities;
 
 import cleancoderscom.http.ParsedRequest;
-import cleancoderscom.http.RequestParser;
 import cleancoderscom.http.Router;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesController;
 import cleancoderscom.socketserver.SocketServer;
@@ -31,7 +30,7 @@ public class Main {
     SocketServer server = new SocketServer(8888, s -> {
       try {
         BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        ParsedRequest request = new RequestParser().parse(reader.readLine());
+        ParsedRequest request = ParsedRequest.fromRequestString(reader.readLine());
         String response = router.route(request);
 
         s.getOutputStream().write(response.getBytes());

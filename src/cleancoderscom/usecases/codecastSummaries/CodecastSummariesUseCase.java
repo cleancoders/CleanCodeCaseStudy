@@ -4,31 +4,26 @@ import cleancoderscom.*;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.entities.License.LicenseType.VIEWING;
 
 public class CodecastSummariesUseCase implements CodecastSummariesInputBoundary {
   public static boolean isLicensedFor(License.LicenseType licenseType, User user, Codecast codecast) {
     List<License> licenses = Context.licenseGateway.findLicensesForUserAndCodecast(user, codecast);
-    for (License l : licenses) {
-      if (l.getType() == licenseType)
-        return true;
-    }
-    return false;
+    return licenses.stream()
+        .anyMatch(l -> l.getType() == licenseType);
   }
 
   @Override
-  public void summarizeCodecasts(User loggedInUser, CodecastSummariesOutputBoundary presenter)
-  {
+  public void summarizeCodecasts(User loggedInUser, CodecastSummariesOutputBoundary presenter) {
     CodecastSummariesResponseModel responseModel = new CodecastSummariesResponseModel();
     List<Codecast> allCodecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
 
-    for (Codecast codecast : allCodecasts)
-      responseModel.addCodecastSummary(summarizeCodecast(codecast, loggedInUser));
+    allCodecasts
+        .stream()
+        .map(codecast -> summarizeCodecast(codecast, loggedInUser))
+        .forEach(responseModel::addCodecastSummary);
 
     presenter.present(responseModel);
   }

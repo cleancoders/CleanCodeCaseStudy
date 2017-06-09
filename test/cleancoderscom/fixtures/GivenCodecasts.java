@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 public class GivenCodecasts {
   private String title;
   private String publicationDate;
-  private static SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
+  private SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy");
   private String permalink;
 
   public void setTitle(String title) {
