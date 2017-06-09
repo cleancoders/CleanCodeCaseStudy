@@ -1,13 +1,13 @@
 package cleancoderscom.utilities;
 
-import cleancoderscom.http.ParsedRequest;
-import cleancoderscom.http.Router;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesController;
-import cleancoderscom.socketserver.SocketServer;
+import cleancoderscom.delivery.mvc.ParsedRequest;
+import cleancoderscom.delivery.mvc.Router;
+import cleancoderscom.delivery.mvc.CodecastSummariesController;
+import cleancoderscom.delivery.mvc.Presenter;
+import cleancoderscom.delivery.socketserver.SocketServer;
 import cleancoderscom.TestSetup;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesPresenter;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewImpl;
+import cleancoderscom.delivery.mvc.CodecastSummariesViewImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class Main {
   public static void main(String[] args) throws Exception {
     Router router = new Router();
     CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
-    CodecastSummariesPresenter presenter = new CodecastSummariesPresenter();
+    Presenter presenter = new Presenter();
     CodecastSummariesViewImpl view = new CodecastSummariesViewImpl();
     router.addPath("", new CodecastSummariesController(useCase, presenter, view));
     // TODO - Add this Controller

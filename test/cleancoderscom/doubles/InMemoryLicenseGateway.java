@@ -3,7 +3,7 @@ package cleancoderscom.doubles;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
-import cleancoderscom.gateways.LicenseGateway;
+import cleancoderscom.usecases.gateways.LicenseGateway;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,7 +1,7 @@
 package cleancoderscom.fixtures;
 
 import cleancoderscom.entities.Codecast;
-import cleancoderscom.Context;
+import cleancoderscom.usecases.gateways.Context;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

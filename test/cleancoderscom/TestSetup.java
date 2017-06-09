@@ -1,12 +1,13 @@
 package cleancoderscom;
 
-import cleancoderscom.*;
+import cleancoderscom.usecases.gateways.Context;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
 import cleancoderscom.doubles.InMemoryCodecastGateway;
 import cleancoderscom.doubles.InMemoryLicenseGateway;
 import cleancoderscom.doubles.InMemoryUserGateway;
+import cleancoderscom.doubles.InMemoryGateKeeper;
 
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class TestSetup {
     Context.userGateway = new InMemoryUserGateway();
     Context.licenseGateway = new InMemoryLicenseGateway();
     Context.codecastGateway = new InMemoryCodecastGateway();
-    Context.gateKeeper = new GateKeeper();
+    Context.gateKeeper = new InMemoryGateKeeper();
   }
 
   public static void setupSampleData() {

@@ -1,7 +1,7 @@
 package cleancoderscom.doubles;
 
 import cleancoderscom.entities.Codecast;
-import cleancoderscom.gateways.CodecastGateway;
+import cleancoderscom.usecases.gateways.CodecastGateway;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,6 +1,6 @@
 package cleancoderscom.fixtures;
 
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel.ViewableCodecastSummary;
+import cleancoderscom.delivery.mvc.CodecastSummariesViewModel.ViewableCodecastSummary;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,10 +1,8 @@
 package cleancoderscom.usecases.codecastDetails;
 
-import cleancoderscom.*;
-import cleancoderscom.entities.Codecast;
-import cleancoderscom.entities.User;
 import cleancoderscom.TestSetup;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesPresenter;
+import cleancoderscom.usecases.gateways.Context;
+import cleancoderscom.entities.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +25,7 @@ public class CodecastDetailsUseCaseTest {
 //    Codecast codecast = new Codecast();
 //    codecast.setTitle("Codecast");
 //    codecast.setPermalink("permalink-a");
-//    codecast.setPublicationDate(CodecastSummariesPresenter.dateFormat.parse("1/2/2015"));
+//    codecast.setPublicationDate(Presenter.dateFormat.parse("1/2/2015"));
 //    Context.codecastGateway.save(codecast);
 //
 //    CodecastDetailsUseCase userCase = new CodecastDetailsUseCase();
@@ -40,8 +38,11 @@ public class CodecastDetailsUseCaseTest {
   @Test
   public void doesntCrashOnMissingCodecast() throws Exception {
     CodecastDetailsUseCase userCase = new CodecastDetailsUseCase();
-    PresentableCodecastDetails details = userCase.requestCodecastDetails(user, "missing");
+    CodecastDetailsUseCase.Request request = new CodecastDetailsUseCase.Request();
+    request.loggedInUser = user;
+    request.permalink = "missing";
+    CodecastDetailsUseCase.Response response = userCase.execute(request);
 
-    assertEquals(false, details.wasFound);
+    assertEquals(false, response.value);
   }
 }

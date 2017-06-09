@@ -2,9 +2,9 @@ package cleancoderscom.entities;
 
 public class License extends Entity {
   public enum LicenseType {DOWNLOADING, VIEWING}
-  private LicenseType type;
-  private User user;
-  private Codecast codecast;
+  private final LicenseType type;
+  private final User user;
+  private final Codecast codecast;
 
   public License(LicenseType type, User user, Codecast codecast) {
     this.type = type;

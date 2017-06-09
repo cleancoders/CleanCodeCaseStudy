@@ -1,12 +1,13 @@
 package cleancoderscom.fixtures;
 
 import cleancoderscom.*;
+import cleancoderscom.usecases.gateways.Context;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesPresenter;
+import cleancoderscom.delivery.mvc.Presenter;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel;
+import cleancoderscom.delivery.mvc.CodecastSummariesViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class CodecastPresentation {
   public static List<CodecastSummariesViewModel.ViewableCodecastSummary> loadViewableCodecasts() {
     User loggedInUser = Context.gateKeeper.getLoggedInUser();
     CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
-    CodecastSummariesPresenter presenter = new CodecastSummariesPresenter();
-    useCase.summarizeCodecasts(loggedInUser, presenter);
+    Presenter presenter = new Presenter();
+    presenter.present(useCase.execute(loggedInUser));
     return presenter.getViewModel().getViewableCodecasts();
   }
 
