@@ -12,13 +12,12 @@ import static org.junit.Assert.*;
 
 public class SocketServerTest {
   private SocketServer server;
-  private EchoSocketService echoService;
   private int port;
 
   @Before
   public void setup() throws Exception {
     port = 8042;
-    echoService = new EchoSocketService();
+    EchoSocketService echoService = new EchoSocketService();
     server = new SocketServer(port, echoService);
   }
 

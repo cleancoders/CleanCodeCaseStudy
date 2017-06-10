@@ -1,11 +1,11 @@
 package cleancoderscom.usecases.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CodecastSummary {
   public String title;
   public String permalink;
-  public Date publicationDate;
+  public LocalDate publicationDate;
   public boolean isViewable;
   public boolean isDownloadable;
 }

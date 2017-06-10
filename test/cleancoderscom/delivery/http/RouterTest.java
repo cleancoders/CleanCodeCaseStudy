@@ -51,6 +51,7 @@ public class RouterTest {
   }
 
   class TestController implements Controller<Request, String> {
+    @Override
     public String handle(Request request) {
       actualRequest = request;
       return "";

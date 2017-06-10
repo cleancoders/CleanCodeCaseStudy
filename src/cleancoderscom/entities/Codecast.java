@@ -1,17 +1,17 @@
 package cleancoderscom.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Codecast extends Entity {
   private String title;
-  private Date publicationDate = new Date();
+  private LocalDate publicationDate = LocalDate.now();
   private String permalink;
 
   public void setTitle(String title) {
     this.title = title;
   }
 
-  public void setPublicationDate(Date publicationDate) {
+  public void setPublicationDate(LocalDate publicationDate) {
     this.publicationDate = publicationDate;
   }
 
@@ -19,7 +19,7 @@ public class Codecast extends Entity {
     return title;
   }
 
-  public Date getPublicationDate() {
+  public LocalDate getPublicationDate() {
     return publicationDate;
   }
 

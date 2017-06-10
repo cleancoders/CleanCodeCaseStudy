@@ -5,10 +5,12 @@ import cleancoderscom.usecases.entities.CodecastSummary;
 import cleancoderscom.usecases.entities.CodecastSummariesResponse;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 public class Presenter implements OutputBoundary<CodecastSummariesViewModel, CodecastSummariesResponse> {
 
-  private final SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd/yyyy");
+  DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("M/dd/yyyy");
+
   private CodecastSummariesViewModel viewModel;
 
   @Override
@@ -28,7 +30,7 @@ public class Presenter implements OutputBoundary<CodecastSummariesViewModel, Cod
     final CodecastSummariesViewModel.ViewableCodecastSummary summary = new CodecastSummariesViewModel.ViewableCodecastSummary();
     summary.title = codecastSummary.title;
     summary.permalink = codecastSummary.permalink;
-    summary.publicationDate = dateFormat.format(codecastSummary.publicationDate);
+    summary.publicationDate = codecastSummary.publicationDate.format(dateFormatter);
     summary.isDownloadable = codecastSummary.isDownloadable;
     summary.isViewable = codecastSummary.isViewable;
     return summary;
