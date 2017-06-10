@@ -1,6 +1,7 @@
 package cleancoderscom.usecases.core;
 
-@FunctionalInterface
-public interface UseCase<Request, Response> {
-    Response execute(Request request);
+import java.util.function.Function;
+
+public interface UseCase<Request, Response> extends Function<Request, Response> {
+    Response apply(Request request);
 }

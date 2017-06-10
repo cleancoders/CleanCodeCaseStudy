@@ -14,7 +14,7 @@ import static cleancoderscom.entities.License.LicenseType.VIEWING;
 public class CodecastSummariesUseCase implements UseCase<User, CodecastSummariesResponse> {
 
   @Override
-  public CodecastSummariesResponse execute(User loggedInUser) {
+  public CodecastSummariesResponse apply(User loggedInUser) {
     CodecastSummariesResponse responseModel = new CodecastSummariesResponse();
     List<Codecast> allCodecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
 

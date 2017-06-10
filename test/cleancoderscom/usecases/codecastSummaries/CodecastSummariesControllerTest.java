@@ -20,8 +20,7 @@ public class CodecastSummariesControllerTest {
   public CodecastSummariesMvcController controller;
 
   @Before
-  public void setUp()
-  {
+  public void setUp() {
     TestSetup.setupSampleData();
 
     useCaseSpy = getCodecastSummariesInputBoundarySpy();
@@ -32,8 +31,7 @@ public class CodecastSummariesControllerTest {
 
   @Test
   @Ignore
-  public void testInputBoundaryInvocation() throws Exception
-  {
+  public void testInputBoundaryInvocation() throws Exception {
     Request request = new ParsedRequest("GET", "blah");
     controller.handle(request);
 
@@ -45,8 +43,7 @@ public class CodecastSummariesControllerTest {
 
   @Test
   @Ignore
-  public void controllerSendsTheViewModelToTheView() throws Exception
-  {
+  public void controllerSendsTheViewModelToTheView() throws Exception {
     presenterSpy.viewModel = new CodecastSummariesViewModel();
 
     Request request = new ParsedRequest("GET", "blah");
@@ -56,8 +53,7 @@ public class CodecastSummariesControllerTest {
     assertSame(presenterSpy.viewModel, viewSpy.viewModel);
   }
 
-  private CodecastSummariesInputBoundarySpy getCodecastSummariesInputBoundarySpy()
-  {
+  private CodecastSummariesInputBoundarySpy getCodecastSummariesInputBoundarySpy() {
     return new CodecastSummariesInputBoundarySpy();
   }
 

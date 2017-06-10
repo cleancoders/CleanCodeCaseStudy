@@ -2,33 +2,38 @@ package cleancoderscom.adapters.mvc;
 
 import cleancoderscom.usecases.core.UseCase;
 
-public abstract class MvcUseController<
+import java.util.function.Function;
+
+public class MvcControllerHandler<
     RequestModel,
+    Output,
     ResponseModel,
     ViewModel,
-    Output,
     INPUT_BOUNDARY extends UseCase<RequestModel, ResponseModel>,
     OUTPUT_BOUNDARY extends OutputBoundary<ViewModel, ResponseModel>,
-    VIEW extends View<ViewModel, Output>> {
+    VIEW extends View<ViewModel, Output>>
+    implements Function<Request, Output> {
 
     private final INPUT_BOUNDARY useCase;
     private final VIEW view;
     private final OUTPUT_BOUNDARY outputBoundary;
+    private final Function<Request, RequestModel> converter;
 
-    public MvcUseController(INPUT_BOUNDARY useCase, OUTPUT_BOUNDARY outputBoundary, VIEW view) {
+    public MvcControllerHandler(INPUT_BOUNDARY useCase, OUTPUT_BOUNDARY outputBoundary, VIEW view, Function<Request, RequestModel> converter) {
         this.useCase = useCase;
         this.view = view;
         this.outputBoundary = outputBoundary;
+        this.converter = converter;
     }
 
-
-    public Output handle(Request request) {
-        RequestModel requestModel = requestToRequestModel(request);
-        ResponseModel responseModel = useCase.execute(requestModel);
+    @Override
+    public Output apply(Request request) {
+        ResponseModel responseModel = converter
+            .andThen(useCase)
+            .apply(request);
         outputBoundary.present(responseModel);
         return view.generateView(outputBoundary.getViewModel());
     }
 
-    public abstract RequestModel requestToRequestModel(Request request);
 }
 

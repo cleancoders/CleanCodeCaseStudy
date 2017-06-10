@@ -1,6 +1,16 @@
 package cleancoderscom.adapters.mvc;
 
-@FunctionalInterface
-public interface Controller {
-  String handle(Request request);
+import java.util.function.Function;
+
+public interface Controller<Input, Output> extends Function<Input, Output> {
+  default Output handle(Input input){
+    return this.apply(input);
+  }
+
+  @Override
+  default Output apply(Input input) {
+    return this.getHandler().apply(input);
+  }
+
+  Function<Input, Output> getHandler();
 }

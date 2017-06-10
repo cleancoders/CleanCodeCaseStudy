@@ -7,6 +7,8 @@ import cleancoderscom.delivery.mvc.Router;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.function.Function;
+
 import static org.junit.Assert.assertEquals;
 
 public class RouterTest {
@@ -48,10 +50,15 @@ public class RouterTest {
     assertEquals(actualRequest, request);
   }
 
-  class TestController implements Controller {
+  class TestController implements Controller<Request, String> {
     public String handle(Request request) {
       actualRequest = request;
       return "";
+    }
+
+    @Override
+    public Function<Request, String> getHandler() {
+      return null;
     }
   }
 

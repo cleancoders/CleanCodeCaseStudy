@@ -10,14 +10,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class SocketServer {
-  private final int port;
   private final SocketService service;
   private volatile boolean running;
   private ServerSocket serverSocket;
   private ExecutorService executor;
 
   public SocketServer(int port, SocketService service) throws Exception {
-    this.port = port;
     this.service = service;
     this.serverSocket = new ServerSocket(port);
     this.executor = Executors.newFixedThreadPool(4);

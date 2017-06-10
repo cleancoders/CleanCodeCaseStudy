@@ -11,9 +11,9 @@ public class CodecastDetails {
     CodecastDetailsUseCase.Request request = new CodecastDetailsUseCase.Request();
     request.permalink = permalink;
     request.loggedInUser = Context.gateKeeper.getLoggedInUser();
-    useCase.execute(request);
+    useCase.apply(request);
 
-    return useCase.execute(request).value;
+    return useCase.apply(request).value;
   }
 
   public boolean codecastDetailsOfferPurchaseOf(String licenseType) {

@@ -10,13 +10,11 @@ import java.util.stream.Collectors;
 public class CodecastSummariesViewImpl implements View<CodecastSummariesViewModel, String> {
 
   @Override
-  public String generateView(CodecastSummariesViewModel viewModel)
-  {
+  public String generateView(CodecastSummariesViewModel viewModel) {
     return toHTML(viewModel.getViewableCodecasts());
   }
 
   static String toHTML(List<CodecastSummariesViewModel.ViewableCodecastSummary> presentableCodecasts) {
-
     try {
       ViewTemplate frontPageTemplate = ViewTemplate.create("html/frontpage.html");
       String content = presentableCodecasts.stream()

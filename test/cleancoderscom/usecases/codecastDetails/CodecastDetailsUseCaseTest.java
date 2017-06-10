@@ -13,8 +13,7 @@ public class CodecastDetailsUseCaseTest {
   private User user;
 
   @Before
-  public void setup()
-  {
+  public void setup() {
     TestSetup.setupContext();
     user = Context.userGateway.save(new User("User"));
   }
@@ -41,7 +40,7 @@ public class CodecastDetailsUseCaseTest {
     CodecastDetailsUseCase.Request request = new CodecastDetailsUseCase.Request();
     request.loggedInUser = user;
     request.permalink = "missing";
-    CodecastDetailsUseCase.Response response = userCase.execute(request);
+    CodecastDetailsUseCase.Response response = userCase.apply(request);
 
     assertEquals(false, response.value);
   }

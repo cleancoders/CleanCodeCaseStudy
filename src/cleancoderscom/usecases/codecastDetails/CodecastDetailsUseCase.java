@@ -7,7 +7,7 @@ import cleancoderscom.usecases.core.UseCase;
 public class CodecastDetailsUseCase implements UseCase<CodecastDetailsUseCase.Request, CodecastDetailsUseCase.Response> {
 
   @Override
-  public Response execute(Request request) {
+  public Response apply(Request request) {
     Response response = new Response();
     response.value = Context.codecastGateway.findCodecastByPermalink(request.permalink) != null;
     return response;

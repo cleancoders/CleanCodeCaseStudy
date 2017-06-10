@@ -24,7 +24,7 @@ public class CodecastPresentation {
     User loggedInUser = Context.gateKeeper.getLoggedInUser();
     CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
     Presenter presenter = new Presenter();
-    presenter.present(useCase.execute(loggedInUser));
+    presenter.present(useCase.apply(loggedInUser));
     return presenter.getViewModel().getViewableCodecasts();
   }
 

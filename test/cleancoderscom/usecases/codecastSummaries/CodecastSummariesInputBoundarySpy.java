@@ -18,7 +18,7 @@ public class CodecastSummariesInputBoundarySpy implements UseCase<User, Codecast
   }
 
   @Override
-  public CodecastSummariesResponse execute(User loggedInUser) {
+  public CodecastSummariesResponse apply(User loggedInUser) {
     summarizeCodecastsWasCalled = true;
     requestedUser = loggedInUser;
     //outputBoundary = presenter;
