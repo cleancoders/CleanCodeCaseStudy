@@ -8,15 +8,15 @@ import java.nio.file.Paths;
 public class ViewTemplate {
   private String template;
 
+  public ViewTemplate(String template) {
+
+    this.template = template;
+  }
+
   public static ViewTemplate create(String templateResource) throws IOException {
     URL url = ClassLoader.getSystemResource(templateResource);
     byte[] bytes = Files.readAllBytes(Paths.get(url.getPath()));
     return new ViewTemplate(new String(bytes));
-  }
-
-  public ViewTemplate(String template) {
-
-    this.template = template;
   }
 
   public void replace(String tagName, String content) {

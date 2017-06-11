@@ -1,21 +1,24 @@
 package cleancoderscom.usecases.codecastSummaries;
 
-import cleancoderscom.usecases.entities.CodecastSummariesResponse;
-import cleancoderscom.usecases.entities.CodecastSummary;
-import cleancoderscom.usecases.gateways.Context;
 import cleancoderscom.TestSetup;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
+import cleancoderscom.usecases.entities.CodecastSummariesResponse;
+import cleancoderscom.usecases.entities.CodecastSummary;
+import cleancoderscom.usecases.gateways.Context;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import java.time.LocalDate;
 
 import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.entities.License.LicenseType.VIEWING;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(HierarchicalContextRunner.class)
 public class CodecastSummariesUseCaseTest {

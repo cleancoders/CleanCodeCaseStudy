@@ -1,16 +1,17 @@
 package cleancoderscom.usecases.codecastSummaries;
 
-import cleancoderscom.adapters.mvc.Request;
-import cleancoderscom.usecases.gateways.Context;
 import cleancoderscom.TestSetup;
+import cleancoderscom.adapters.mvc.Request;
 import cleancoderscom.delivery.mvc.CodecastSummariesMvcController;
-import cleancoderscom.delivery.mvc.ParsedRequest;
 import cleancoderscom.delivery.mvc.CodecastSummariesViewModel;
+import cleancoderscom.delivery.mvc.ParsedRequest;
+import cleancoderscom.usecases.gateways.Context;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 public class CodecastSummariesControllerTest {
 

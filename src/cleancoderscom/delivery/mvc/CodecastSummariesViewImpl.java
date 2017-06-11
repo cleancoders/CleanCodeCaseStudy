@@ -9,21 +9,16 @@ import java.util.stream.Collectors;
 
 public class CodecastSummariesViewImpl implements View<CodecastSummariesViewModel, String> {
 
-  @Override
-  public String generateView(CodecastSummariesViewModel viewModel) {
-    return toHTML(viewModel.getViewableCodecasts());
-  }
-
   static String toHTML(List<CodecastSummariesViewModel.ViewableCodecastSummary> presentableCodecasts) {
     try {
       ViewTemplate frontPageTemplate = ViewTemplate.create("html/frontpage.html");
       String content = presentableCodecasts.stream()
-          .map(viewableCodecastSummary -> createViewTemplate(viewableCodecastSummary).getContent())
-          .collect(Collectors.joining());
+        .map(viewableCodecastSummary -> createViewTemplate(viewableCodecastSummary).getContent())
+        .collect(Collectors.joining());
 
       frontPageTemplate.replace("codecasts", content);
       return frontPageTemplate.getContent();
-    } catch(Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
       return "Gunk";
     }
@@ -46,5 +41,10 @@ public class CodecastSummariesViewImpl implements View<CodecastSummariesViewMode
     codecastTemplate.replace("duration", "58 min.");
     codecastTemplate.replace("contentActions", "Buying options go here.");
     return codecastTemplate;
+  }
+
+  @Override
+  public String generateView(CodecastSummariesViewModel viewModel) {
+    return toHTML(viewModel.getViewableCodecasts());
   }
 }

@@ -1,8 +1,8 @@
 package cleancoderscom.usecases.codecastDetails;
 
 import cleancoderscom.entities.User;
-import cleancoderscom.usecases.gateways.Context;
 import cleancoderscom.usecases.core.UseCase;
+import cleancoderscom.usecases.gateways.Context;
 
 public class CodecastDetailsUseCase implements UseCase<CodecastDetailsUseCase.Request, CodecastDetailsUseCase.Response> {
 

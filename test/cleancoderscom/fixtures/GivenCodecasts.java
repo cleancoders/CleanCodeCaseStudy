@@ -21,7 +21,9 @@ public class GivenCodecasts {
     this.publicationDate = publicationDate;
   }
 
-  public void setPermalink(String permalink) {this.permalink = permalink;}
+  public void setPermalink(String permalink) {
+    this.permalink = permalink;
+  }
 
   public void execute() throws ParseException {
     Codecast codecast = new Codecast();

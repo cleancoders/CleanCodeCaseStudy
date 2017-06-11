@@ -5,10 +5,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.Socket;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class SocketServerTest {
   private SocketServer server;
@@ -24,35 +28,6 @@ public class SocketServerTest {
   @After
   public void tearDown() throws Exception {
     server.stop();
-  }
-
-  public static abstract class TestSocketService implements SocketService {
-    public void serve(Socket s) {
-      try {
-        doService(s);
-        synchronized(this) {
-          notify();
-        }
-        s.close();
-      } catch(IOException e) {
-        e.printStackTrace();
-      }
-    }
-
-    protected abstract void doService(Socket s) throws IOException;
-  }
-
-  public static class EchoSocketService extends TestSocketService {
-
-    protected void doService(Socket s) throws IOException {
-      InputStream is = s.getInputStream();
-      InputStreamReader isr = new InputStreamReader(is);
-      BufferedReader br = new BufferedReader(isr);
-      String message = br.readLine();
-      OutputStream os = s.getOutputStream();
-      os.write(message.getBytes());
-      os.flush();
-    }
   }
 
   @Test
@@ -82,6 +57,35 @@ public class SocketServerTest {
 
     assertEquals("echo1", response1);
     assertEquals("echo2", response2);
+  }
+
+  public static abstract class TestSocketService implements SocketService {
+    public void serve(Socket s) {
+      try {
+        doService(s);
+        synchronized (this) {
+          notify();
+        }
+        s.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    protected abstract void doService(Socket s) throws IOException;
+  }
+
+  public static class EchoSocketService extends TestSocketService {
+
+    protected void doService(Socket s) throws IOException {
+      InputStream is = s.getInputStream();
+      InputStreamReader isr = new InputStreamReader(is);
+      BufferedReader br = new BufferedReader(isr);
+      String message = br.readLine();
+      OutputStream os = s.getOutputStream();
+      os.write(message.getBytes());
+      os.flush();
+    }
   }
 }
 

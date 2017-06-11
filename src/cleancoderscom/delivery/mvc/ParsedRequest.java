@@ -3,24 +3,13 @@ package cleancoderscom.delivery.mvc;
 import cleancoderscom.adapters.mvc.Request;
 
 public class ParsedRequest implements Request {
-  @Override
-  public String getMethod() {
-    return method;
-  }
-
-  @Override
-  public String getPath() {
-    return path;
-  }
-
   private String method = "";
-  private  String path = "";
+  private String path = "";
 
   public ParsedRequest(String method, String path) {
     this.method = method;
     this.path = path;
   }
-
   private ParsedRequest() {
   }
 
@@ -33,5 +22,15 @@ public class ParsedRequest implements Request {
     String length = parts.length >= 2 ? parts[1] : "";
 
     return new ParsedRequest(method, length);
+  }
+
+  @Override
+  public String getMethod() {
+    return method;
+  }
+
+  @Override
+  public String getPath() {
+    return path;
   }
 }

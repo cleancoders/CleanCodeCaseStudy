@@ -24,12 +24,12 @@ public class SocketServer {
   public void start() throws Exception {
     Runnable connectionHandler = () -> {
       try {
-        while(running) {
+        while (running) {
           Socket serviceSocket = serverSocket.accept();
           executor.execute(() -> service.serve(serviceSocket));
         }
-      } catch(IOException e) {
-        if(running)
+      } catch (IOException e) {
+        if (running)
           e.printStackTrace();
       }
     };

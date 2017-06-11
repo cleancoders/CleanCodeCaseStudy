@@ -1,14 +1,14 @@
 package cleancoderscom.utilities;
 
-import cleancoderscom.delivery.mvc.CodecastSummariesMvcController;
-import cleancoderscom.delivery.mvc.ParsedRequest;
-import cleancoderscom.delivery.mvc.Router;
-import cleancoderscom.delivery.mvc.Presenter;
-import cleancoderscom.delivery.socketserver.SocketServer;
 import cleancoderscom.TestSetup;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
-import cleancoderscom.delivery.mvc.CodecastSummariesViewImpl;
 import cleancoderscom.adapters.server.SocketService;
+import cleancoderscom.delivery.mvc.CodecastSummariesMvcController;
+import cleancoderscom.delivery.mvc.CodecastSummariesViewImpl;
+import cleancoderscom.delivery.mvc.ParsedRequest;
+import cleancoderscom.delivery.mvc.Presenter;
+import cleancoderscom.delivery.mvc.Router;
+import cleancoderscom.delivery.socketserver.SocketServer;
+import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +35,12 @@ public class Main {
     server.start();
   }
 
+  private static void writeHttpResponse(OutputStream os, String response) throws IOException {
+    long length = response.length();
+    response = String.format("HTTP/1.1 200 OK\nContent-Length: %d\n\n%s", length, response);
+    os.write(response.getBytes());
+  }
+
   static class AppService implements SocketService {
 
     private final Router router;
@@ -46,15 +52,15 @@ public class Main {
     @Override
     public synchronized void serve(Socket s) {
       try (
-          BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
-          OutputStream os = s.getOutputStream()) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        OutputStream os = s.getOutputStream()) {
 
         String requestString = reader.readLine();
         ParsedRequest request = ParsedRequest.fromRequestString(requestString);
 
         String response = router.route(request);
         writeHttpResponse(os, response);
-      } catch(IOException e) {
+      } catch (IOException e) {
         e.printStackTrace();
       } finally {
         try {
@@ -64,11 +70,5 @@ public class Main {
         }
       }
     }
-  }
-
-  private static void writeHttpResponse(OutputStream os, String response) throws IOException {
-    long length = response.length();
-    response = String.format("HTTP/1.1 200 OK\nContent-Length: %d\n\n%s", length, response);
-    os.write(response.getBytes());
   }
 }

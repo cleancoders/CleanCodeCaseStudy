@@ -1,8 +1,8 @@
 package cleancoderscom.delivery.http;
 
 import cleancoderscom.adapters.mvc.Controller;
-import cleancoderscom.delivery.mvc.ParsedRequest;
 import cleancoderscom.adapters.mvc.Request;
+import cleancoderscom.delivery.mvc.ParsedRequest;
 import cleancoderscom.delivery.mvc.Router;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,6 +50,13 @@ public class RouterTest {
     assertEquals(actualRequest, request);
   }
 
+  @Test
+  public void four04() throws Exception {
+    String result = router.route(new ParsedRequest("GET", "/something-missing"));
+
+    assertEquals("HTTP/1.1 404 OK\n", result);
+  }
+
   class TestController implements Controller<Request, String> {
     @Override
     public String handle(Request request) {
@@ -61,12 +68,5 @@ public class RouterTest {
     public Function<Request, String> getHandler() {
       return null;
     }
-  }
-
-  @Test
-  public void four04() throws Exception {
-    String result = router.route(new ParsedRequest("GET", "/something-missing"));
-
-    assertEquals("HTTP/1.1 404 OK\n", result);
   }
 }

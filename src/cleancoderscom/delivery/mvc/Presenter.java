@@ -1,10 +1,9 @@
 package cleancoderscom.delivery.mvc;
 
 import cleancoderscom.adapters.mvc.OutputBoundary;
-import cleancoderscom.usecases.entities.CodecastSummary;
 import cleancoderscom.usecases.entities.CodecastSummariesResponse;
+import cleancoderscom.usecases.entities.CodecastSummary;
 
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
 public class Presenter implements OutputBoundary<CodecastSummariesViewModel, CodecastSummariesResponse> {
@@ -22,8 +21,8 @@ public class Presenter implements OutputBoundary<CodecastSummariesViewModel, Cod
   public void present(CodecastSummariesResponse responseModel) {
     viewModel = new CodecastSummariesViewModel();
     responseModel.getCodecastSummaries().stream()
-        .map(this::makeViewable)
-        .forEach(viewable -> viewModel.addModel(viewable));
+      .map(this::makeViewable)
+      .forEach(viewable -> viewModel.addModel(viewable));
   }
 
   private CodecastSummariesViewModel.ViewableCodecastSummary makeViewable(CodecastSummary codecastSummary) {

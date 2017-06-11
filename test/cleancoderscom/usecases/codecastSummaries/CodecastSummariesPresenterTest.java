@@ -18,7 +18,7 @@ public class CodecastSummariesPresenterTest {
     CodecastSummariesResponse responseModel = new CodecastSummariesResponse();
     CodecastSummary summary = new CodecastSummary();
     summary.title = "Title";
-    summary.publicationDate = LocalDate.of(2015,10,3);
+    summary.publicationDate = LocalDate.of(2015, 10, 3);
     summary.permalink = "permalink";
     summary.isViewable = true;
     summary.isDownloadable = false;

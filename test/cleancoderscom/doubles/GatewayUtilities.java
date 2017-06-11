@@ -30,7 +30,7 @@ public class GatewayUtilities<T extends Entity> {
   }
 
   public T save(T entity) {
-    if(entity.getId() == null)
+    if (entity.getId() == null)
       entity.setId(UUID.randomUUID().toString());
     String id = entity.getId();
     saveCloneInMap(id, entity);

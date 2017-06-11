@@ -15,6 +15,12 @@ import static cleancoderscom.entities.License.LicenseType.VIEWING;
 
 public class CodecastSummariesUseCase implements UseCase<User, CodecastSummariesResponse> {
 
+  public static boolean isLicensedFor(License.LicenseType licenseType, User user, Codecast codecast) {
+    List<License> licenses = Context.licenseGateway.findLicensesForUserAndCodecast(user, codecast);
+    return licenses.stream()
+      .anyMatch(l -> l.getType() == licenseType);
+  }
+
   @Override
   public CodecastSummariesResponse apply(User loggedInUser) {
     CodecastSummariesResponse responseModel = new CodecastSummariesResponse();
@@ -26,12 +32,6 @@ public class CodecastSummariesUseCase implements UseCase<User, CodecastSummaries
       .forEach(responseModel::addCodecastSummary);
 
     return responseModel;
-  }
-
-  public static boolean isLicensedFor(License.LicenseType licenseType, User user, Codecast codecast) {
-    List<License> licenses = Context.licenseGateway.findLicensesForUserAndCodecast(user, codecast);
-    return licenses.stream()
-      .anyMatch(l -> l.getType() == licenseType);
   }
 
   private CodecastSummary summarizeCodecast(Codecast codecast, User user) {

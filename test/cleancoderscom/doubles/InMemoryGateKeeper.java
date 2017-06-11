@@ -7,12 +7,12 @@ public class InMemoryGateKeeper implements GateKeeper {
   private User loggedInUser;
 
   @Override
-  public void setLoggedInUser(User loggedInUser) {
-    this.loggedInUser = loggedInUser;
+  public User getLoggedInUser() {
+    return loggedInUser;
   }
 
   @Override
-  public User getLoggedInUser() {
-    return loggedInUser;
+  public void setLoggedInUser(User loggedInUser) {
+    this.loggedInUser = loggedInUser;
   }
 }

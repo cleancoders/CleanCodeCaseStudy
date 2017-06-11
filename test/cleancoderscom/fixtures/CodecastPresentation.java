@@ -1,14 +1,14 @@
 package cleancoderscom.fixtures;
 
-import cleancoderscom.*;
-import cleancoderscom.usecases.gateways.Context;
+import cleancoderscom.TestSetup;
+import cleancoderscom.delivery.mvc.CodecastSummariesViewModel;
+import cleancoderscom.delivery.mvc.Presenter;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
-import cleancoderscom.delivery.mvc.Presenter;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
-import cleancoderscom.delivery.mvc.CodecastSummariesViewModel;
-import java.util.ArrayList;
+import cleancoderscom.usecases.gateways.Context;
+
 import java.util.List;
 
 import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;

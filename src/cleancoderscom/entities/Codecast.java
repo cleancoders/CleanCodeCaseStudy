@@ -7,27 +7,27 @@ public class Codecast extends Entity {
   private LocalDate publicationDate = LocalDate.now();
   private String permalink;
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public void setPublicationDate(LocalDate publicationDate) {
-    this.publicationDate = publicationDate;
-  }
-
   public String getTitle() {
     return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
   }
 
   public LocalDate getPublicationDate() {
     return publicationDate;
   }
 
-  public void setPermalink(String permalink) {
-    this.permalink = permalink;
+  public void setPublicationDate(LocalDate publicationDate) {
+    this.publicationDate = publicationDate;
   }
 
   public String getPermalink() {
     return permalink;
+  }
+
+  public void setPermalink(String permalink) {
+    this.permalink = permalink;
   }
 }

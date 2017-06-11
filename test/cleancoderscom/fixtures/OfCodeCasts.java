@@ -14,19 +14,19 @@ public class OfCodeCasts {
 
   public List<Object> query() {
     return CodecastPresentation.loadViewableCodecasts().stream()
-        .map(this::makeRow)
-        .collect(Collectors.toList());
+      .map(this::makeRow)
+      .collect(Collectors.toList());
 
   }
 
   private List<Object> makeRow(ViewableCodecastSummary summary) {
     return list(
-        list("title", summary.title),
-        list("publication date", summary.publicationDate),
-        list("picture", summary.title),
-        list("description", summary.title),
-        list("viewable", summary.isViewable ? "+" : "-"),
-        list("downloadable", summary.isDownloadable ? "+" : "-"));
+      list("title", summary.title),
+      list("publication date", summary.publicationDate),
+      list("picture", summary.title),
+      list("description", summary.title),
+      list("viewable", summary.isViewable ? "+" : "-"),
+      list("downloadable", summary.isDownloadable ? "+" : "-"));
   }
 
 }

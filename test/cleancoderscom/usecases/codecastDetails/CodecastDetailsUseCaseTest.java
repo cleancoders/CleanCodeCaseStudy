@@ -1,8 +1,8 @@
 package cleancoderscom.usecases.codecastDetails;
 
 import cleancoderscom.TestSetup;
-import cleancoderscom.usecases.gateways.Context;
 import cleancoderscom.entities.User;
+import cleancoderscom.usecases.gateways.Context;
 import org.junit.Before;
 import org.junit.Test;
 
