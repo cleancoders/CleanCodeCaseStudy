@@ -1,51 +1,43 @@
 package cleancoderscom.usecases.codecastSummaries;
 
-import cleancoderscom.*;
+import cleancoderscom.TestSetup;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
-import cleancoderscom.TestSetup;
+import cleancoderscom.usecases.entities.CodecastSummariesResponse;
+import cleancoderscom.usecases.entities.CodecastSummary;
+import cleancoderscom.usecases.gateways.Context;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.time.LocalDate;
 
 import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
 import static cleancoderscom.entities.License.LicenseType.VIEWING;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(HierarchicalContextRunner.class)
 public class CodecastSummariesUseCaseTest {
   private User user;
   private CodecastSummariesUseCase useCase;
-  public CodecastSummariesOutputBoundarySpy presenterSpy;
 
   @Before
   public void setUp() {
     TestSetup.setupContext();
     user = Context.userGateway.save(new User("User"));
     useCase = new CodecastSummariesUseCase();
-    presenterSpy = new CodecastSummariesOutputBoundarySpy();
-
-  }
-
-  @Test
-  public void useCaseWiring() throws Exception
-  {
-    useCase.summarizeCodecasts(user, presenterSpy);
-    assertNotNull(presenterSpy.responseModel);
   }
 
   public class GivenNoCodecasts {
     @Test
-    public void noneArePresented() throws Exception {
-      useCase.summarizeCodecasts(user, presenterSpy);
+    public void noneAreReturned() throws Exception {
+      CodecastSummariesResponse response = useCase.apply(user);
 
-      assertEquals(0, presenterSpy.responseModel.getCodecastSummaries().size());
+      assertEquals(0, response.getCodecastSummaries().size());
     }
   }
 
@@ -58,18 +50,15 @@ public class CodecastSummariesUseCaseTest {
     }
 
     @Test
-    public void oneIsPresented() throws Exception {
+    public void oneIsReturned() throws Exception {
       codecast.setTitle("Some Title");
-      Date now = new GregorianCalendar(2014, 4, 19).getTime();
+      LocalDate now = LocalDate.of(2014, 4, 19);
       codecast.setPublicationDate(now);
       codecast.setPermalink("permalink");
       Context.codecastGateway.save(codecast);
-      presenterSpy = new CodecastSummariesOutputBoundarySpy();
+      CodecastSummariesResponse codecastSummaryResponse = useCase.apply(user);
 
-      useCase.summarizeCodecasts(user, presenterSpy);
-
-      assertEquals(1, presenterSpy.responseModel.getCodecastSummaries().size());
-      CodecastSummary codecastSummary = presenterSpy.responseModel.getCodecastSummaries().get(0);
+      CodecastSummary codecastSummary = codecastSummaryResponse.getCodecastSummaries().get(0);
       assertEquals("Some Title", codecastSummary.title);
       assertEquals(now, codecastSummary.publicationDate);
       assertEquals("permalink", codecastSummary.permalink);
@@ -78,14 +67,13 @@ public class CodecastSummariesUseCaseTest {
     public class GivenNoLicenses {
       @Test
       public void userCannotViewCodecast() throws Exception {
-        assertFalse(useCase.isLicensedFor(VIEWING, user, codecast));
+        assertFalse(CodecastSummariesUseCase.isLicensedFor(VIEWING, user, codecast));
       }
 
       @Test
-      public void presentedCodecastShowsNotViewable() throws Exception {
-        useCase.summarizeCodecasts(user, presenterSpy);
-        CodecastSummary summary = presenterSpy.responseModel.getCodecastSummaries().get(0);
-        assertFalse(summary.isViewable);
+      public void returnedCodecastShowsNotViewable() throws Exception {
+        CodecastSummariesResponse response = useCase.apply(user);
+        assertFalse(response.getCodecastSummaries().get(0).isViewable);
       }
     }
 
@@ -100,21 +88,21 @@ public class CodecastSummariesUseCaseTest {
 
       @Test
       public void userCanViewCodecast() throws Exception {
-        assertTrue(useCase.isLicensedFor(VIEWING, user, codecast));
+        assertTrue(CodecastSummariesUseCase.isLicensedFor(VIEWING, user, codecast));
       }
 
       @Test
       public void unlicensedUserCannotViewOtherUsersCodecast() throws Exception {
         User otherUser = new User("otherUser");
         Context.userGateway.save(otherUser);
-        assertFalse(useCase.isLicensedFor(VIEWING, otherUser, codecast));
+        assertFalse(CodecastSummariesUseCase.isLicensedFor(VIEWING, otherUser, codecast));
       }
 
       @Test
-      public void presentedCodecastIsViewable() throws Exception {
+      public void returnedCodecastIsViewable() throws Exception {
         Context.licenseGateway.save(new License(VIEWING, user, codecast));
-        useCase.summarizeCodecasts(user, presenterSpy);
-        CodecastSummary summary = presenterSpy.responseModel.getCodecastSummaries().get(0);
+        CodecastSummariesResponse response = useCase.apply(user);
+        CodecastSummary summary = response.getCodecastSummaries().get(0);
         assertTrue(summary.isViewable);
       }
     }
@@ -129,9 +117,9 @@ public class CodecastSummariesUseCaseTest {
       }
 
       @Test
-      public void presentedCodecastIsDownloadable() throws Exception {
-        useCase.summarizeCodecasts(user, presenterSpy);
-        CodecastSummary summary = presenterSpy.responseModel.getCodecastSummaries().get(0);
+      public void returnedCodecastIsDownloadable() throws Exception {
+        CodecastSummariesResponse response = useCase.apply(user);
+        CodecastSummary summary = response.getCodecastSummaries().get(0);
         assertTrue(summary.isDownloadable);
         assertFalse(summary.isViewable);
       }

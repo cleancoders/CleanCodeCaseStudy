@@ -7,11 +7,11 @@
   <name>casestudy</name>
   <description>Case Study</description>
   <scm>
-    <connection>scm:git:git://github.com/cleancoders/CleanCodeCaseStudy.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/cleancoders/CleanCodeCaseStudy.git</developerConnection>
-    <tag>cb7c013982f4e12451e23b1774544582faea82ce
+    <connection>scm:git:git://github.com/aantoniadis/CleanCodeCaseStudy.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/aantoniadis/CleanCodeCaseStudy.git</developerConnection>
+    <tag>ebbb05de16b47d714c168abfb4c7b336b9dbc146
 </tag>
-    <url>https://github.com/cleancoders/CleanCodeCaseStudy</url>
+    <url>https://github.com/aantoniadis/CleanCodeCaseStudy</url>
   </scm>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -23,20 +23,27 @@
     </resources>
     <testResources>
       <testResource>
-        <directory>dev-resources</directory>
-      </testResource>
-      <testResource>
         <directory>resources</directory>
       </testResource>
     </testResources>
     <directory>target</directory>
     <outputDirectory>target/classes</outputDirectory>
-    <plugins/>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
   <repositories>
     <repository>
       <id>central</id>
-      <url>http://repo1.maven.org/maven2/</url>
+      <url>https://repo1.maven.org/maven2/</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -85,30 +92,6 @@
       <groupId>de.bechte.junit</groupId>
       <artifactId>junit-hierarchicalcontextrunner</artifactId>
       <version>4.11.3</version>
-    </dependency>
-    <dependency>
-      <groupId>org.clojure</groupId>
-      <artifactId>tools.nrepl</artifactId>
-      <version>0.2.3</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.clojure</groupId>
-          <artifactId>clojure</artifactId>
-        </exclusion>
-      </exclusions>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>clojure-complete</groupId>
-      <artifactId>clojure-complete</artifactId>
-      <version>0.2.3</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.clojure</groupId>
-          <artifactId>clojure</artifactId>
-        </exclusion>
-      </exclusions>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

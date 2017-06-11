@@ -1,14 +1,14 @@
 package cleancoderscom.fixtures;
 
-import cleancoderscom.*;
+import cleancoderscom.TestSetup;
+import cleancoderscom.delivery.mvc.CodecastSummariesViewModel;
+import cleancoderscom.delivery.mvc.Presenter;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
-import cleancoderscom.TestSetup;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesPresenter;
 import cleancoderscom.usecases.codecastSummaries.CodecastSummariesUseCase;
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel;
-import java.util.ArrayList;
+import cleancoderscom.usecases.gateways.Context;
+
 import java.util.List;
 
 import static cleancoderscom.entities.License.LicenseType.DOWNLOADING;
@@ -23,8 +23,8 @@ public class CodecastPresentation {
   public static List<CodecastSummariesViewModel.ViewableCodecastSummary> loadViewableCodecasts() {
     User loggedInUser = Context.gateKeeper.getLoggedInUser();
     CodecastSummariesUseCase useCase = new CodecastSummariesUseCase();
-    CodecastSummariesPresenter presenter = new CodecastSummariesPresenter();
-    useCase.summarizeCodecasts(loggedInUser, presenter);
+    Presenter presenter = new Presenter();
+    presenter.present(useCase.apply(loggedInUser));
     return presenter.getViewModel().getViewableCodecasts();
   }
 
@@ -35,12 +35,10 @@ public class CodecastPresentation {
 
   public boolean loginUser(String username) {
     User user = Context.userGateway.findUserByName(username);
-    if (user != null) {
-      Context.gateKeeper.setLoggedInUser(user);
-      return true;
-    } else {
+    if (user == null)
       return false;
-    }
+    Context.gateKeeper.setLoggedInUser(user);
+    return true;
   }
 
   private boolean createLicenseForType(String username, String codecastTitle, License.LicenseType type) {
@@ -65,9 +63,7 @@ public class CodecastPresentation {
 
   public boolean clearCodecasts() {
     List<Codecast> codecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
-    for (Codecast codecast : new ArrayList<Codecast>(codecasts)) {
-      Context.codecastGateway.delete(codecast);
-    }
+    codecasts.forEach(codecast -> Context.codecastGateway.delete(codecast));
     return Context.codecastGateway.findAllCodecastsSortedChronologically().size() == 0;
   }
 

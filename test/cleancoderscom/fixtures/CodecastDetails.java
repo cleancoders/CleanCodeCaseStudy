@@ -1,17 +1,19 @@
 package cleancoderscom.fixtures;
 
 import cleancoderscom.usecases.codecastDetails.CodecastDetailsUseCase;
-import cleancoderscom.Context;
-import cleancoderscom.usecases.codecastDetails.PresentableCodecastDetails;
+import cleancoderscom.usecases.gateways.Context;
 
 public class CodecastDetails {
 
   private CodecastDetailsUseCase useCase = new CodecastDetailsUseCase();
-  private PresentableCodecastDetails details;
 
   public boolean requestCodecast(String permalink) {
-    details = useCase.requestCodecastDetails(Context.gateKeeper.getLoggedInUser(), permalink);
-    return details != null;
+    CodecastDetailsUseCase.Request request = new CodecastDetailsUseCase.Request();
+    request.permalink = permalink;
+    request.loggedInUser = Context.gateKeeper.getLoggedInUser();
+    useCase.apply(request);
+
+    return useCase.apply(request).value;
   }
 
   public boolean codecastDetailsOfferPurchaseOf(String licenseType) {

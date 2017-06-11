@@ -1,16 +1,17 @@
 package cleancoderscom;
 
-import cleancoderscom.*;
+import cleancoderscom.doubles.InMemoryCodecastGateway;
+import cleancoderscom.doubles.InMemoryGateKeeper;
+import cleancoderscom.doubles.InMemoryLicenseGateway;
+import cleancoderscom.doubles.InMemoryUserGateway;
 import cleancoderscom.entities.Codecast;
 import cleancoderscom.entities.License;
 import cleancoderscom.entities.User;
-import cleancoderscom.doubles.InMemoryCodecastGateway;
-import cleancoderscom.doubles.InMemoryLicenseGateway;
-import cleancoderscom.doubles.InMemoryUserGateway;
+import cleancoderscom.usecases.gateways.Context;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import static cleancoderscom.entities.License.LicenseType.*;
+import static cleancoderscom.entities.License.LicenseType.VIEWING;
 
 public class TestSetup {
 
@@ -18,7 +19,7 @@ public class TestSetup {
     Context.userGateway = new InMemoryUserGateway();
     Context.licenseGateway = new InMemoryLicenseGateway();
     Context.codecastGateway = new InMemoryCodecastGateway();
-    Context.gateKeeper = new GateKeeper();
+    Context.gateKeeper = new InMemoryGateKeeper();
   }
 
   public static void setupSampleData() {
@@ -32,12 +33,12 @@ public class TestSetup {
 
     Codecast e1 = new Codecast();
     e1.setTitle("Episode 1 - The Beginning");
-    e1.setPublicationDate(new Date());
+    e1.setPublicationDate(LocalDate.now());
     e1.setPermalink("e1");
 
     Codecast e2 = new Codecast();
     e2.setTitle("Episode 2 - The Continuation");
-    e2.setPublicationDate(new Date(e1.getPublicationDate().getTime() + 1));
+    e2.setPublicationDate(e1.getPublicationDate().plusDays(1));
     e2.setPermalink("e2");
 
     Context.codecastGateway.save(e1);

@@ -1,35 +1,33 @@
 package cleancoderscom.entities;
 
-import cleancoderscom.entities.Entity;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Codecast extends Entity {
   private String title;
-  private Date publicationDate = new Date();
+  private LocalDate publicationDate = LocalDate.now();
   private String permalink;
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public void setPublicationDate(Date publicationDate) {
-    this.publicationDate = publicationDate;
-  }
 
   public String getTitle() {
     return title;
   }
 
-  public Date getPublicationDate() {
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public LocalDate getPublicationDate() {
     return publicationDate;
   }
 
-  public void setPermalink(String permalink) {
-    this.permalink = permalink;
+  public void setPublicationDate(LocalDate publicationDate) {
+    this.publicationDate = publicationDate;
   }
 
   public String getPermalink() {
     return permalink;
+  }
+
+  public void setPermalink(String permalink) {
+    this.permalink = permalink;
   }
 }

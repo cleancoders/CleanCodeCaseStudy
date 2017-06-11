@@ -1,7 +1,7 @@
 package cleancoderscom.utilities;
 
-import cleancoderscom.socketserver.SocketServer;
-import cleancoderscom.socketserver.SocketService;
+import cleancoderscom.adapters.server.SocketService;
+import cleancoderscom.delivery.socketserver.SocketServer;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,12 +19,12 @@ public class HelloWorld implements SocketService {
       OutputStream os = s.getOutputStream();
 
       String response = "HTTP/1.1 200 OK\n" +
-          "Content-Length: 21\n" +
-          "\n" +
-          "<h1>Hello, world</h1>";
+        "Content-Length: 21\n" +
+        "\n" +
+        "<h1>Hello, world</h1>";
 
       os.write(response.getBytes());
-    } catch(IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }

@@ -1,10 +1,10 @@
 package cleancoderscom.fixtures;
 
-import cleancoderscom.usecases.codecastSummaries.CodecastSummariesViewModel.ViewableCodecastSummary;
+import cleancoderscom.delivery.mvc.CodecastSummariesViewModel.ViewableCodecastSummary;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //OrderedQuery
 public class OfCodeCasts {
@@ -13,22 +13,20 @@ public class OfCodeCasts {
   }
 
   public List<Object> query() {
-    final List<ViewableCodecastSummary> viewableCodecasts = CodecastPresentation.loadViewableCodecasts();
-    List<Object> queryResponse = new ArrayList<Object>();
-    for (ViewableCodecastSummary summary : viewableCodecasts)
-      queryResponse.add(makeRow(summary));
-    return queryResponse;
+    return CodecastPresentation.loadViewableCodecasts().stream()
+      .map(this::makeRow)
+      .collect(Collectors.toList());
 
   }
 
   private List<Object> makeRow(ViewableCodecastSummary summary) {
     return list(
-        list("title", summary.title),
-        list("publication date", summary.publicationDate),
-        list("picture", summary.title),
-        list("description", summary.title),
-        list("viewable", summary.isViewable ? "+" : "-"),
-        list("downloadable", summary.isDownloadable ? "+" : "-"));
+      list("title", summary.title),
+      list("publication date", summary.publicationDate),
+      list("picture", summary.title),
+      list("description", summary.title),
+      list("viewable", summary.isViewable ? "+" : "-"),
+      list("downloadable", summary.isDownloadable ? "+" : "-"));
   }
 
 }
