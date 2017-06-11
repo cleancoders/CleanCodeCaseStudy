@@ -24,7 +24,7 @@ public class CodecastSummariesMvcControllerHandler extends MvcControllerHandler<
     UseCase<User, CodecastSummariesResponse> useCase,
     OutputBoundary<CodecastSummariesViewModel, CodecastSummariesResponse> outputBoundary,
     View<CodecastSummariesViewModel, String> view,
-    Function<Request, User> converter) {
-    super(useCase, outputBoundary, view, converter);
+    Function<Request, User> requestModelMapper) {
+    super(useCase, outputBoundary, view, requestModelMapper);
   }
 }

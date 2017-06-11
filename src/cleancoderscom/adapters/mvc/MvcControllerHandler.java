@@ -17,18 +17,18 @@ public class MvcControllerHandler<
   private final INPUT_BOUNDARY useCase;
   private final VIEW view;
   private final OUTPUT_BOUNDARY outputBoundary;
-  private final Function<Request, RequestModel> converter;
+  private final Function<Request, RequestModel> requestModelMapper;
 
-  public MvcControllerHandler(INPUT_BOUNDARY useCase, OUTPUT_BOUNDARY outputBoundary, VIEW view, Function<Request, RequestModel> converter) {
+  public MvcControllerHandler(INPUT_BOUNDARY useCase, OUTPUT_BOUNDARY outputBoundary, VIEW view, Function<Request, RequestModel> requestModelMapper) {
     this.useCase = useCase;
     this.view = view;
     this.outputBoundary = outputBoundary;
-    this.converter = converter;
+    this.requestModelMapper = requestModelMapper;
   }
 
   @Override
   public Output apply(Request request) {
-    ResponseModel responseModel = converter
+    ResponseModel responseModel = requestModelMapper
       .andThen(useCase)
       .apply(request);
     outputBoundary.present(responseModel);
