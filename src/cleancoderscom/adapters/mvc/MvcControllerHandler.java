@@ -29,7 +29,7 @@ public class MvcControllerHandler<
   @Override
   public Output apply(Request request) {
     ResponseModel responseModel = requestModelMapper
-      .andThen(useCase)
+      .andThen(useCase::apply)
       .apply(request);
     outputBoundary.present(responseModel);
     return view.generateView(outputBoundary.getViewModel());
