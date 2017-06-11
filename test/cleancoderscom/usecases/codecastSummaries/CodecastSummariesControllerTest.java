@@ -30,7 +30,6 @@ public class CodecastSummariesControllerTest {
   }
 
   @Test
-  @Ignore
   public void testInputBoundaryInvocation() throws Exception {
     Request request = new ParsedRequest("GET", "blah");
     controller.handle(request);
@@ -38,11 +37,9 @@ public class CodecastSummariesControllerTest {
     assertTrue(useCaseSpy.summarizeCodecastsWasCalled);
     String loggedInUser = Context.userGateway.findUserByName("Bob").getId();
     assertEquals(loggedInUser, useCaseSpy.requestedUser.getId());
-    assertSame(presenterSpy, useCaseSpy.outputBoundary);
   }
 
   @Test
-  @Ignore
   public void controllerSendsTheViewModelToTheView() throws Exception {
     presenterSpy.viewModel = new CodecastSummariesViewModel();
 

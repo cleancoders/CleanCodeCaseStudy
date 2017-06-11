@@ -11,5 +11,3 @@
 
   :aliases {"fitnesse" ["run" "-m" "fitnesseMain.FitNesseMain" "-p" "8080"]}
   )
-
-

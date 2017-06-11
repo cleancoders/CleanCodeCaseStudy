@@ -13,7 +13,8 @@ import java.util.function.Function;
 
 public class CodecastSummariesMvcControllerHandler extends MvcControllerHandler<
     User,
-    String, CodecastSummariesResponse,
+    String,
+    CodecastSummariesResponse,
     CodecastSummariesViewModel,
     UseCase<User, CodecastSummariesResponse>,
     OutputBoundary<CodecastSummariesViewModel, CodecastSummariesResponse>,
@@ -21,8 +22,8 @@ public class CodecastSummariesMvcControllerHandler extends MvcControllerHandler<
 
         public CodecastSummariesMvcControllerHandler(
             UseCase<User, CodecastSummariesResponse> useCase, 
-            OutputBoundary<CodecastSummariesViewModel, CodecastSummariesResponse> outputBoundary, 
-            View<CodecastSummariesViewModel, String> view, 
+            OutputBoundary<CodecastSummariesViewModel, CodecastSummariesResponse> outputBoundary,
+            View<CodecastSummariesViewModel, String> view,
             Function<Request, User> converter) {
             super(useCase, outputBoundary, view, converter);
         }

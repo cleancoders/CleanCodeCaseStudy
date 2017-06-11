@@ -35,12 +35,10 @@ public class CodecastPresentation {
 
   public boolean loginUser(String username) {
     User user = Context.userGateway.findUserByName(username);
-    if (user != null) {
-      Context.gateKeeper.setLoggedInUser(user);
-      return true;
-    } else {
+    if (user == null)
       return false;
-    }
+    Context.gateKeeper.setLoggedInUser(user);
+    return true;
   }
 
   private boolean createLicenseForType(String username, String codecastTitle, License.LicenseType type) {
@@ -65,9 +63,7 @@ public class CodecastPresentation {
 
   public boolean clearCodecasts() {
     List<Codecast> codecasts = Context.codecastGateway.findAllCodecastsSortedChronologically();
-    for (Codecast codecast : new ArrayList<>(codecasts)) {
-      Context.codecastGateway.delete(codecast);
-    }
+    codecasts.forEach(codecast -> Context.codecastGateway.delete(codecast));
     return Context.codecastGateway.findAllCodecastsSortedChronologically().size() == 0;
   }
 
